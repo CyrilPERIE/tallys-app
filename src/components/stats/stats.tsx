@@ -30,7 +30,7 @@ export default function Stats({ className }: { className?: string }) {
           </Row>
           <StatsCumulativeProfit className="bg-blue-500 flex-1" />
         </Column>
-        <StatsLastBet className="w-2xl bg-yellow-500" />
+        <StatsLastBet className="w-xl bg-yellow-500" />
       </Row>
     </Column>
   );
