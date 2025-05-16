@@ -9,6 +9,7 @@ import {
   StatsPeriod,
   StatsHighlights,
 } from "@/components/stats";
+import { texts } from "@/lib/constants/texts";
 export default function Stats({ className }: { className?: string }) {
   return (
     <Column className={cn("", className)}>
@@ -17,7 +18,7 @@ export default function Stats({ className }: { className?: string }) {
         <Column className="flex-1">
           <Row className="flex-1 max-h-40">
             <Section className="flex-1 max-w-40">
-              <SectionTitle className="mb-2">Profit</SectionTitle>
+              <SectionTitle className="mb-2">{texts.stats.profit.title}</SectionTitle>
               <StatsTotalProfit />
               <StatsROI className="text-slate-500" />
             </Section>
