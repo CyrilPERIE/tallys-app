@@ -17,7 +17,7 @@ const navItems = [
   },
 ];
 
-export default function Nav({ className }: { className?: string }) {
+export const Nav = ({ className }: { className?: string }) => {
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
   return (
@@ -42,7 +42,9 @@ export default function Nav({ className }: { className?: string }) {
               variant="ghost"
               className={cn(
                 "relative z-10 rounded-full py-2 px-4 transition-colors duration-200 hover:bg-transparent",
-                active ? "text-black font-bold underline" : "text-muted-foreground"
+                active
+                  ? "text-black font-bold underline"
+                  : "text-muted-foreground"
               )}
             >
               <Link href={item.href}>{item.label}</Link>
@@ -52,4 +54,4 @@ export default function Nav({ className }: { className?: string }) {
       })}
     </div>
   );
-}
+};

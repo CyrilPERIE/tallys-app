@@ -1,12 +1,12 @@
 import { cn } from "@/lib/utils";
 
-export default function Header({
+export const Header = ({
   className,
   children,
 }: {
   className?: string;
   children?: React.ReactNode;
-}) {
+}) => {
   return (
     <div
       className={cn(
@@ -17,4 +17,4 @@ export default function Header({
       {children}
     </div>
   );
-}
+};
