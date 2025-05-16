@@ -29,3 +29,34 @@ export const Column = ({
     </div>
   );
 };
+
+export const Section = ({
+  children,
+  className,
+  ...props
+}: {
+  children: React.ReactNode;
+  className?: string;
+} & React.HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div className={cn("shadow-sm rounded-md p-4 bg-white relative", className)} {...props}>
+      {children}
+    </div>
+  );
+};
+
+
+export const SectionTitle = ({
+  children,
+  className,
+  ...props
+}: {
+  children: React.ReactNode;
+  className?: string;
+} & React.HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div className={cn("font-medium absolute top-2 left-3", className)} {...props}>
+      {children}
+    </div>
+  );
+};
