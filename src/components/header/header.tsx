@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Row } from "@/components/ui/layout";
 
 export const Header = ({
   className,
@@ -8,13 +9,13 @@ export const Header = ({
   children?: React.ReactNode;
 }) => {
   return (
-    <div
+    <Row
       className={cn(
-        "gap-4 flex justify-center items-center py-4 shadow-sm rounded-b-xl",
+        "gap-4 justify-center items-center py-4 shadow-sm rounded-b-xl",
         className
       )}
     >
       {children}
-    </div>
+    </Row>
   );
 };

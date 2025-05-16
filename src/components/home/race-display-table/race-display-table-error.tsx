@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 export const RaceDisplayTableError = ({ className }: { className?: string }) => {
     return (
-        <div className={cn("flex flex-col gap-4", className)}>
+        <div className={cn("", className)}>
             <p>Error</p>
         </div>
     )

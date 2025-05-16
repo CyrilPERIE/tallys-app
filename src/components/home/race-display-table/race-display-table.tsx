@@ -6,7 +6,7 @@ export const RaceDisplayTable = ({ courseId, className }: { courseId: string | n
         return <RaceDisplayTableEmpty className={className} />
     }
     return (
-        <div className={cn("flex flex-col gap-4", className)}>
+        <div className={cn("", className)}>
             <p>Course {courseId}</p>
         </div>
     )
