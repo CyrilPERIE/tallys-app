@@ -1,9 +1,21 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+const navItems = [
+  {
+    label: "Courses",
+    href: "/",
+  },
+  {
+    label: "Stats",
+    href: "/stats",
+  },
+];
 
 export default function Nav({ className }: { className?: string }) {
   const pathname = usePathname();
@@ -16,18 +28,15 @@ export default function Nav({ className }: { className?: string }) {
       )}
     >
       <div className="flex gap-6 bg-slate-100 rounded-full py-2 px-4">
-        <Button
-          variant={isActive("/") ? "default" : "ghost"}
-          className="rounded-full py-2 px-4"
-        >
-          <Link href="/">Courses</Link>
-        </Button>
-        <Button
-          variant={isActive("/stats") ? "default" : "ghost"}
-          className="rounded-full py-2 px-4"
-        >
-          <Link href="/stats">Stats</Link>
-        </Button>
+        {navItems.map((item) => (
+          <Button
+            key={item.href}
+            variant={isActive(item.href) ? "default" : "ghost"}
+            className="rounded-full py-2 px-4"
+          >
+            <Link href={item.href}>{item.label}</Link>
+          </Button>
+        ))}
       </div>
     </div>
   );
