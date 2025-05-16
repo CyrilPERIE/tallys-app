@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className="h-full">
       <body
-        className={cn(inter.className, "min-h-full flex flex-col bg-slate-100")}
+        className={cn(inter.className, "min-h-full flex flex-col bg-[#f8f5f1]")}
       >
         <Header className="bg-white">
           <LogoName className="absolute left-4" />

@@ -1,5 +1,5 @@
 import Stats from "@/components/stats/stats";
 
 export default function StatsPage() {
-  return <Stats />;
+  return <Stats className="size-full" />;
 }
