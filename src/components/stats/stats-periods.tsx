@@ -4,9 +4,8 @@ import { cn } from "@/lib/utils";
 import { Row } from "@/components/ui/layout";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-
-export const periodLabels = ["3M", "6M", "1Y", "YTD", "MAX"] as const;
-export type PeriodLabel = (typeof periodLabels)[number];
+import { PeriodLabel } from "@/stores/periods/store";
+import { usePeriodStore } from "@/stores/periods/provider";
 
 type Period = {
   label: PeriodLabel;
@@ -46,22 +45,13 @@ const periods: Period[] = [
   },
 ];
 
-type StatsPeriodProps = {
-  period: PeriodLabel;
-  setPeriod: (period: PeriodLabel) => void;
-  className?: string;
-};
-
-export const StatsPeriod = ({
-  period,
-  setPeriod,
-  className,
-}: StatsPeriodProps) => {
+export const StatsPeriod = ({ className }: { className?: string }) => {
+  const { period, updatePeriod } = usePeriodStore((state) => state);
   const handlePeriodClick = (label: PeriodLabel) => {
     const period = periods.find((p) => p.label === label);
     if (period) {
       period.action();
-      setPeriod(label);
+      updatePeriod(label);
     }
   };
   const isActive = (label: PeriodLabel) => label === period;
