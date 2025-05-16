@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Column, Row, Section, SectionTitle } from "@/components/ui/layout";
+import { Column, Row, Section, SectionTitle, SectionInfo } from "@/components/ui/layout";
 import {
   StatsHitRate,
   StatsROI,
@@ -19,6 +19,9 @@ export default function Stats({ className }: { className?: string }) {
           <Row className="flex-1 max-h-40">
             <Section className="flex-1 max-w-40">
               <SectionTitle className="mb-2">{texts.stats.profit.title}</SectionTitle>
+              <SectionInfo>
+                {texts.stats.profit.description}
+              </SectionInfo>
               <StatsTotalProfit />
               <StatsROI className="text-slate-500" />
             </Section>

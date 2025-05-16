@@ -5,7 +5,7 @@ export const texts = {
     },
     stats : {
         hitRate : {
-            title : "Taux de succès",
+            title : "% de succès",
             description : "Taux de succès des paris sur la période sélectionnée.",
         },
         roi : {
