@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Column, Row } from "@/components/ui/layout";
 import {
@@ -6,14 +8,18 @@ import {
   StatsCumulativeProfit,
   StatsLastBet,
   StatsTotalProfit,
-  StatsFilters,
+  StatsPeriod,
   StatsHighlights,
 } from "@/components/stats";
+import { useState } from "react";
+import { PeriodLabel } from "@/components/stats/stats-periods";
 
 export default function Stats({ className }: { className?: string }) {
+  const [period, setPeriod] = useState<PeriodLabel>("3M");
+
   return (
     <Column className={cn("", className)}>
-      <StatsFilters className="bg-green-500" />
+      <StatsPeriod period={period} setPeriod={setPeriod} className="mb-4" />
       <Row className="flex-1">
         <Column className="flex-1">
           <Row className="flex-1 max-h-40">
