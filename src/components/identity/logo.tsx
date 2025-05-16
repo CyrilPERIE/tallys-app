@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export const Logo = ({
   width = 32,
   height = 32,

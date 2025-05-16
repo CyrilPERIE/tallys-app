@@ -6,11 +6,12 @@ import { Footer } from "@/components/footer";
 import { cn } from "@/lib/utils";
 import { Nav } from "@/components/header/nav";
 import { LogoName } from "@/components/identity/logo-name";
+import { texts } from "@/lib/constants/texts";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "E-PMU",
-  description: "E-PMU is a platform that helps you manage your bets",
+  title: texts.app.name,
+  description: texts.app.description,
 };
 
 export default function RootLayout({
