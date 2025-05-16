@@ -39,12 +39,17 @@ export const Section = ({
   className?: string;
 } & React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className={cn("shadow-sm rounded-md p-4 bg-white relative", className)} {...props}>
+    <div
+      className={cn(
+        "shadow-sm rounded-md p-4 bg-white relative flex flex-col justify-center items-center",
+        className
+      )}
+      {...props}
+    >
       {children}
     </div>
   );
 };
-
 
 export const SectionTitle = ({
   children,
@@ -55,7 +60,10 @@ export const SectionTitle = ({
   className?: string;
 } & React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className={cn("font-medium absolute top-2 left-3", className)} {...props}>
+    <div
+      className={cn("font-medium absolute top-2 left-3", className)}
+      {...props}
+    >
       {children}
     </div>
   );

@@ -16,13 +16,13 @@ export default function Stats({ className }: { className?: string }) {
       <Row className="flex-1">
         <Column className="flex-1">
           <Row className="flex-1 max-h-40">
-            <Section className="flex-1 max-w-40 flex flex-col justify-center items-center">
+            <Section className="flex-1 max-w-40">
               <SectionTitle className="mb-2">Profit</SectionTitle>
               <StatsTotalProfit />
               <StatsROI className="text-slate-500" />
             </Section>
-            <StatsHitRate className="bg-violet-500 flex-1 max-w-40" />
-            <StatsHighlights className="bg-violet-500 flex-1 max-w-40" />
+            <StatsHitRate className="flex-1 max-w-40" />
+            <StatsHighlights className="bg-violet-500 flex-1" />
           </Row>
           <StatsCumulativeProfit className="bg-blue-500 flex-1" />
         </Column>
