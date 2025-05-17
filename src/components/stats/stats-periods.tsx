@@ -26,15 +26,15 @@ const periods: Period[] = [
     },
   },
   {
-    label: "1Y",
-    action: () => {
-      console.log("1Y");
-    },
-  },
-  {
     label: "YTD",
     action: () => {
       console.log("YTD");
+    },
+  },
+  {
+    label: "1Y",
+    action: () => {
+      console.log("1Y");
     },
   },
   {

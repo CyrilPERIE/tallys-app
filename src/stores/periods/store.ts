@@ -1,6 +1,6 @@
 import { createStore } from "zustand";
 
-export type PeriodLabel = "1M" | "3M" | "6M" | "1Y" | "YTD" | "MAX";
+export type PeriodLabel = "1M" | "3M" | "6M" | "YTD" | "1Y" | "MAX";
 
 interface PeriodState {
   period?: PeriodLabel;
