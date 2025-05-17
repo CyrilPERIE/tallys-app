@@ -20,5 +20,16 @@ export const texts = {
             title : "Profit",
             description : "Profit des paris sur la période sélectionnée.",
         },
+        highlights : {
+            mostProfitableCourse : {
+                title : "Plus gros gain",
+            },
+            highestOddsWin : {
+                title : "Plus grosse côte remportée",
+            },
+            bestMonth : {
+                title : "Meilleur mois",
+            },
+        },
     }
 }
