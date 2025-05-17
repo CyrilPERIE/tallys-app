@@ -1,3 +1,5 @@
+import { Bet } from "@/domain/entities/bet";
+
 type CourseIdToDomainType = {
     date: string;
     race: string;
@@ -29,6 +31,11 @@ const _MONTH_MAP = {
     "12": "Déc.",
 }
 
+export const computeProfit = (bet: Bet) => {
+    const { amount, profit } = bet
+    return profit || profit === 0 ? profit - amount : 0
+}
+
 export const datePmuToDomain = (date: string) => {
     const day = date.slice(0, 2);
     const month = date.slice(2, 4);
@@ -44,5 +51,5 @@ export const getMonthLabel = (month: string) => {
 }
 
 export const amountToDisplay = (amount: number, currency: string = "€") => {
-    return `${amount > 0 ? "+" : amount < 0 ? "-" : ""}${amount.toFixed(2)}${currency}`.replace(".", ",");
+    return `${amount > 0 ? "+" : ""}${amount.toFixed(2)}${currency}`.replace(".", ",");
 }

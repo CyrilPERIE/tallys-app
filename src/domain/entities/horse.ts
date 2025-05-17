@@ -1,7 +1,7 @@
 export type Horse = {
     id: string;
     number: string;
-    casque: string;
+    casaque: string;
     name: string;
     trainerName: string;
     jockeyName: string;

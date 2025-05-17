@@ -9,7 +9,7 @@ import {
 } from "@/components/stats";
 import { StatsPeriod } from "@/components/stats/stats-periods";
 import { StatsCumulativeProfit } from "@/components/stats/stats-cumulative-profit-graph";
-import { StatsLastBet } from "@/components/stats/stats-last-bet-list";
+import { BetTable } from "@/components/bet";
 
 
 export default function Stats({ className }: { className?: string }) {
@@ -27,7 +27,7 @@ export default function Stats({ className }: { className?: string }) {
           </Row>
           <StatsCumulativeProfit className="bg-blue-500 flex-1" />
         </Column>
-        <StatsLastBet className="w-xl bg-yellow-500" />
+        <BetTable className="w-xl bg-white rounded-lg p-5" />
       </Row>
     </Column>
   );
