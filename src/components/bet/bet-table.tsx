@@ -10,6 +10,7 @@ import {
   TableHead,
 } from "@/components/ui/table";
 
+const BetTableHeadLabel = ["Date", "Montant parié", "Course", "Cheval", "Profit"];
 export const BetTable = ({ className }: { className?: string }) => {
   const bets = BetsMock;
   return (
@@ -18,11 +19,9 @@ export const BetTable = ({ className }: { className?: string }) => {
         <TableCaption>Derniers paris</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Date</TableHead>
-            <TableHead>Montant parié</TableHead>
-            <TableHead>Course</TableHead>
-            <TableHead>Cheval</TableHead>
-            <TableHead>Profit</TableHead>
+            {BetTableHeadLabel.map((label) => (
+              <TableHead key={label} className="text-center">{label}</TableHead>
+            ))}
           </TableRow>
         </TableHeader>
         <TableBody>

@@ -43,6 +43,13 @@ export const datePmuToDomain = (date: string) => {
     return `${day} ${_MONTH_MAP[month as keyof typeof _MONTH_MAP]} ${year}`;
 }
 
+export const dateToDomain = (date: Date) => {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day} ${getMonthLabel(month.toString())} ${year}`;
+}
+
 export const getMonthLabel = (month: string) => {
     if (month.length === 1) {
         return _MONTH_MAP[`0${month}` as keyof typeof _MONTH_MAP];

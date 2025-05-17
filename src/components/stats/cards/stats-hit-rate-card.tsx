@@ -7,8 +7,8 @@ import {
   CardTitle,
   CardInfo,
 } from "@/components/ui/card";
-import { Row } from "@/components/ui/layout";
-import { StatsHitRate } from "@/components/stats/data/stats-hit-rate";
+import { Column, Row } from "@/components/ui/layout";
+import { StatsHitRate, StatsBetCountRatio } from "@/components/stats/data";
 export const StatsHitRateCard = ({ className }: { className?: string }) => {
   return (
     <Card className={cn("", className)}>
@@ -18,8 +18,11 @@ export const StatsHitRateCard = ({ className }: { className?: string }) => {
           <CardInfo>{texts.stats.hitRate.description}</CardInfo>
         </Row>
       </CardHeader>
-      <CardContent className="flex items-center justify-center h-full">
-        <StatsHitRate />
+      <CardContent className="h-full">
+        <Column className="gap-0 items-center justify-center h-full">
+          <StatsHitRate />
+          <StatsBetCountRatio className="text-slate-500" />
+        </Column>
       </CardContent>
     </Card>
   );
