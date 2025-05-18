@@ -1,4 +1,4 @@
-export const PROMPT_PREDICT_RACE = (pronostics: string, pronosticsDetaille: string, rapportsDefinitifs: string) => `Tu es un expert en pronostic de courses de chevaux.
+export const PROMPT_FOULE_V1_0 = (pronostics: string, pronosticsDetaille: string, rapportsDefinitifs: string) => `Tu es un expert en pronostic de courses de chevaux.
 Voici les pronostics pour la course :
 ${pronostics}
 

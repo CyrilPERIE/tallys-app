@@ -1,29 +1,26 @@
 import { OpenAI } from "openai";
+import { z } from "zod";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 export class OpenaiService {
-  //TODO: Ajouter une clé avec un schema zod pour la réponse. On redemande la réponse si elle ne respecte pas le schema zod. (max 3 tentatives)
-  //Du coup il faudra retirer la clé toJson
-  async generateCompletion(content: string, toJson: boolean = false) {
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      store: true,
-      messages: [{ role: "user", content: content }],
-    });
-    let result = completion.choices[0].message.content;
-    if (toJson && result) {
-      try {
-        result =
-          result?.replace(/^```json\n/, "").replace(/\n```$/, "") || "{}";
-        return JSON.parse(result as string);
-      } catch (error) {
-        console.error(error);
-        return {};
+  async generateCompletion(content: string, schema: z.ZodSchema, maxAttempts: number = 3) {
+    let attempts = 0;
+    while (attempts < maxAttempts) {
+      const completion = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        store: true,
+        messages: [{ role: "user", content: content }],
+      });
+      let result = completion.choices[0].message.content;
+      const parsedResult = schema.safeParse(result);
+      if (parsedResult.success) {
+        return parsedResult.data;
       }
+      attempts++;
     }
-    return result;
+    return {};
   }
 }

@@ -1,9 +1,14 @@
 import { CourseIdentifiers } from "@/lib/types/pmu";
 import { PmuAPIService } from "@/server/services/external/pmu-api-service";
 import { OpenaiService } from "@/server/services/external/openai-service";
-import { PROMPT_PREDICT_RACE } from "@/lib/constants/prompts";
+import { PROMPT_FOULE_V1_0 } from "@/lib/constants/prompts";
+import { z } from "zod";
 
-export const predictRaceUseCase = async ({
+const schema = z.object({
+  result: z.array(z.string().refine((val) => !isNaN(parseInt(val)))),
+});
+
+export const Foule_v1_0UseCase = async ({
   pmuDate,
   reunionNum,
   courseNum,
@@ -28,11 +33,11 @@ export const predictRaceUseCase = async ({
     courseNum,
     false
   )) as string;
-  const prompt = PROMPT_PREDICT_RACE(
+  const prompt = PROMPT_FOULE_V1_0(
     pronostics,
     pronosticsDetaille,
     rapportsDefinitifs
   );
-  const completion = await openaiService.generateCompletion(prompt, true);
+  const completion = await openaiService.generateCompletion(prompt, schema);
   return completion;
 };
