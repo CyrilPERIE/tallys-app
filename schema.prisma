@@ -7,11 +7,354 @@ generator client {
     provider = "prisma-client-js"
 }
 
-model Bet {
-    id     String   @id @default(uuid())
-    date   DateTime @default(now())
-    amount Int
+model Identifiable {
+    id           Int    @id @default(autoincrement())
+    code         String
+    libelleCourt String
+    libelleLong  String
+}
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Timestamped {
+    id             Int @id @default(autoincrement())
+    timestamp      Int
+    timezoneOffset Int
+}
+
+model CommentaireSource {
+    id     Int    @id @default(autoincrement())
+    texte  String
+    source String
+}
+
+model NomNumPMU {
+    id     Int    @id @default(autoincrement())
+    numPmu Int
+    nom    String
+}
+
+model TauxContribution {
+    id           Int @id @default(autoincrement())
+    numerateur   Int
+    denominateur Int
+}
+
+model Penetrometre {
+    id           Int     @id @default(autoincrement())
+    valeurMesure String?
+    heureMesure  String
+    intitule     String
+    commentaire  String
+}
+
+model Incident {
+    id                 Int    @id @default(autoincrement())
+    type               String
+    numeroParticipants Int[]
+}
+
+model ReunionHippodrome {
+    id           Int    @id @default(autoincrement())
+    code         String
+    libelleCourt String
+    libelleLong  String
+}
+
+model CourseHippodrome {
+    id             Int    @id @default(autoincrement())
+    code           String
+    libelleCourt   String
+    libelleLong    String
+    codeHippodrome String
+}
+
+model Meteo {
+    id                     Int    @id @default(autoincrement())
+    datePrevision          Int
+    nebulositeCode         String
+    nebulositeLibelleCourt String
+    nebulositeLibelleLong  String
+    temperature            Int
+    forceVent              Int
+    directionVent          String
+}
+
+model PronosticsResponse {
+    id             Int        @id @default(autoincrement())
+    nom_prix       String
+    id_nav_course  Int
+    num_course_pmu Int
+    nb_partants    Int
+    source         String
+    compressed     Boolean
+    dateReunion    Int
+    numeroReunion  Int
+    numeroCourse   Int
+    pronostics     PronoPmuFr @relation(fields: [pronoId], references: [id])
+    pronoId        Int
+}
+
+model PronoPmuFr {
+    id                          Int         @id @default(autoincrement())
+    chapeau                     Chapeau
+    selection                   Selection[]
+    presentationCourseTranslate String
+}
+
+model Chapeau {
+    id        Int    @id @default(autoincrement())
+    text      String
+    translate String
+}
+
+model Selection {
+    id             Int    @id @default(autoincrement())
+    cote_prob      String
+    id_nav_partant Int
+    rang           Int
+    num_partant    Int
+}
+
+model PronosticsDetaillesResponse {
+    id            Int               @id @default(autoincrement())
+    commentaire   CommentaireSource @relation(fields: [commentaireId], references: [id])
+    commentaireId Int
+    quinte        Boolean
+    syntheses     Synthesis[]
+    avis          AVI[]
+    cribles       Crible[]
+}
+
+model AVI {
+    id          Int         @id @default(autoincrement())
+    societe     String
+    journaliste String
+    pronostics  NomNumPMU[]
+}
+
+model Crible {
+    id          Int     @id @default(autoincrement())
+    numPmu      Int
+    nom         String
+    commentaire String
+    partant     Boolean
+}
+
+model Synthesis {
+    id         Int                   @id @default(autoincrement())
+    intitule   String
+    classement SynthesisClassement[]
+}
+
+model SynthesisClassement {
+    id         Int    @id @default(autoincrement())
+    numPmu     Int
+    nom        String
+    nbFoisCite Int
+}
+
+model RapportsDefinitifsResponse {
+    id             Int       @id @default(autoincrement())
+    typePari       String
+    miseBase       Int
+    rembourse      Boolean
+    audience       String
+    dividendeUnite String
+    famillePari    String
+    rapports       Rapport[]
+}
+
+model Rapport {
+    id                         Int    @id @default(autoincrement())
+    libelle                    String
+    dividende                  Float
+    dividendePourUnEuro        Float
+    combinaison                Int[]
+    nombreGagnants             Int
+    dividendePourUneMiseDeBase Float
+    dividendeUnite             String
+}
+
+model Programme {
+    id                         Int       @id @default(autoincrement())
+    cached                     Boolean
+    date                       Int
+    timezoneOffset             Int
+    reunions                   Reunion[]
+    prochainesCoursesAPartir   Json
+    datesProgrammesDisponibles String[]
+}
+
+model Reunion {
+    id                           Int               @id @default(autoincrement())
+    cached                       Boolean
+    timezoneOffset               Int
+    dateReunion                  Int
+    numOfficiel                  Int
+    numOfficielReunionPrecedente Int?
+    numOfficielReunionSuivante   Int
+    numExterne                   Int
+    nature                       String
+    audience                     String
+    statut                       String
+    derniereReunion              Boolean
+    offresInternet               Boolean
+    regionHippique               String?
+    meteoId                      Int
+    meteo                        Meteo             @relation(fields: [meteoId], references: [id])
+    hippodromeId                 Int
+    hippodrome                   ReunionHippodrome @relation(fields: [hippodromeId], references: [id])
+    cagnottes                    Cagnotte[]
+    parisEvenement               ParisEvenement[]
+    disciplinesMere              String[]
+    specialites                  String[]
+    courses                      CourseElement[]
+    paysId                       Int
+    pays                         Pays              @relation(fields: [paysId], references: [id])
+}
+
+model Pays {
+    id      Int    @id @default(autoincrement())
+    code    String
+    libelle String
+}
+
+model CourseElement {
+    id                                          Int              @id @default(autoincrement())
+    departImminent                              Boolean
+    arriveeDefinitive                           Boolean
+    timezoneOffset                              Int
+    numReunion                                  Int
+    numExterneReunion                           Int
+    numOrdre                                    Int
+    numExterne                                  Int
+    heureDepart                                 Int
+    libelle                                     String
+    libelleCourt                                String
+    montantPrix                                 Int
+    parcours                                    String
+    distance                                    Int
+    distanceUnit                                String
+    discipline                                  String
+    specialite                                  String
+    categorieParticularite                      String
+    conditionAge                                String?
+    conditionSexe                               String
+    nombreDeclaresPartants                      Int
+    grandPrixNationalTrot                       Boolean
+    numSocieteMere                              Int
+    pariMultiCourses                            Boolean
+    pariSpecial                                 Boolean
+    montantTotalOffert                          Int
+    montantOffert1er                            Int
+    montantOffert2eme                           Int
+    montantOffert3eme                           Int
+    montantOffert4eme                           Int
+    montantOffert5eme                           Int
+    conditions                                  String
+    numCourseDedoublee                          Int
+    statut                                      String
+    categorieStatut                             String
+    dureeCourse                                 Int
+    rapportsDefinitifsDisponibles               Boolean
+    isArriveeDefinitive                         Boolean
+    isDepartImminent                            Boolean
+    isDepartAJPlusUn                            Boolean
+    pronosticsExpires                           Boolean
+    replayDisponible                            Boolean
+    epcPourTousParis                            Boolean
+    courseTrackee                               Boolean
+    courseExclusiveInternet                     Boolean
+    formuleChampLibreIndisponible               Boolean
+    hasEParis                                   Boolean
+    corde                                       String?
+    numQuestion                                 Int[]
+    indicateurEvenementArriveeProvisoire        String?
+    detailsIndicateurEvenementArriveeProvisoire String?
+    typePiste                                   String?
+    incidents                                   Incident[]
+    penetrometreId                              Int?
+    penetrometre                                Penetrometre?    @relation(fields: [penetrometreId], references: [id])
+    ordreArrivee                                Json
+    hippodromeId                                Int
+    hippodrome                                  CourseHippodrome @relation(fields: [hippodromeId], references: [id])
+    paris                                       Paris[]
+    cagnottes                                   Cagnotte[]
+}
+
+model Paris {
+    id                      Int             @id @default(autoincrement())
+    poolId                  String?
+    typePari                String
+    miseBase                Int
+    miseMax                 Int?
+    enVente                 Boolean
+    audience                String
+    cagnotte                Int?
+    reportable              Boolean
+    codePari                String
+    nbChevauxReglementaire  Int
+    ordre                   Boolean
+    combine                 Boolean
+    spotAutorise            Boolean
+    complement              Boolean
+    misEnPaiement           Boolean?
+    nouveauQuinte           Boolean?
+    valeursFlexiAutorisees  Int[]
+    valeursRisqueAutorisees Int[]
+    infosJackpotId          Int?
+    infosJackpot            InfosJackpot?   @relation(fields: [infosJackpotId], references: [id])
+    infosOptionMaxId        Int?
+    infosOptionMax          InfosOptionMax? @relation(fields: [infosOptionMaxId], references: [id])
+}
+
+model InfosJackpot {
+    id               Int              @id @default(autoincrement())
+    miseBase         Int
+    tauxContribution TauxContribution @relation(fields: [tauxId], references: [id])
+    tauxId           Int
+}
+
+model InfosOptionMax {
+    id               Int              @id @default(autoincrement())
+    miseBase         Int
+    tauxContribution TauxContribution @relation(fields: [tauxId], references: [id])
+    tauxId           Int
+    tirage           Tirage[]
+}
+
+model Tirage {
+    id      Int   @id @default(autoincrement())
+    coef    Int
+    numeros Int[]
+}
+
+model Cagnotte {
+    id               Int     @id @default(autoincrement())
+    numCourse        Int
+    typePari         String
+    montant          Int
+    cagnotteInternet Boolean
+    typeCagnotte     String?
+}
+
+model ParisEvenement {
+    id            Int    @id @default(autoincrement())
+    codePari      String
+    dateProgramme Int
+    numReunion    Int
+    numOrdre      Int
+}
+
+model PoolID {
+    id       Int    @id @default(autoincrement())
+    codePari String
+    poolId   String
+}
+
+model PhotosArrivee {
+    id           Int     @id @default(autoincrement())
+    heightSize   Int
+    widthSize    Int
+    url          String
+    originalSize Boolean
 }
