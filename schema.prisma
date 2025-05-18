@@ -238,6 +238,8 @@ model Reunion {
   pays                         Pays              @relation(fields: [paysId], references: [id])
   Programme                    Programme?        @relation(fields: [programmeId], references: [id])
   programmeId                  Int?
+
+  @@unique([programmeId, numOfficiel])
 }
 
 model Pays {
