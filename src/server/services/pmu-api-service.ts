@@ -1,6 +1,10 @@
 import { URLS } from "@/lib/constants/urls";
+import { PronosticsDetaillesResponse } from "@/lib/types/pmu/details-pronostic";
+import { PronosticsResponse } from "@/lib/types/pmu/pronostic";
+import { RapportsDefinitifsResponse } from "@/lib/types/pmu/rapport";
+import { ProgrammeResponse } from "@/lib/types/pmu/programme";
 
-export class PmuService {
+export class PmuAPIService {
   async getPronostics(
     pmuDate: string,
     reunionNum: string,
@@ -10,7 +14,7 @@ export class PmuService {
     const pronosticResponse = await fetch(
       URLS.PMU.PRONOSTIC(pmuDate, reunionNum, courseNum)
     );
-    const pronosticJson = await pronosticResponse.json();
+    const pronosticJson = await pronosticResponse.json() as PronosticsResponse;
     return toJson
       ? pronosticJson
       : JSON.stringify(pronosticJson.pronostics, null, 2);
@@ -25,7 +29,7 @@ export class PmuService {
     const pronosticsDetailleResponse = await fetch(
       URLS.PMU.PRONOSTICS_DETAILLES(pmuDate, reunionNum, courseNum)
     );
-    const pronosticsDetailleJson = await pronosticsDetailleResponse.json();
+    const pronosticsDetailleJson = await pronosticsDetailleResponse.json() as PronosticsDetaillesResponse;
     return toJson
       ? pronosticsDetailleJson
       : JSON.stringify(pronosticsDetailleJson, null, 2);
@@ -40,7 +44,7 @@ export class PmuService {
     const rapportsDefinitifsResponse = await fetch(
       URLS.PMU.RAPPORTS_DEFINITIFS(pmuDate, reunionNum, courseNum)
     );
-    const rapportsDefinitifsJson = await rapportsDefinitifsResponse.json();
+    const rapportsDefinitifsJson = await rapportsDefinitifsResponse.json() as RapportsDefinitifsResponse;
     return toJson
       ? rapportsDefinitifsJson
       : JSON.stringify(rapportsDefinitifsJson, null, 2);
@@ -48,9 +52,8 @@ export class PmuService {
 
   async getProgramme(pmuDate: string, toJson: boolean = true) {
     const programmeResponse = await fetch(URLS.PMU.PROGRAMME(pmuDate));
-    const programmeJson = await programmeResponse.json();
-    const programme = programmeJson.programme;
-    return toJson ? programme : JSON.stringify(programme, null, 2);
+    const programmeJson = await programmeResponse.json() as ProgrammeResponse;
+    return toJson ? programmeJson : JSON.stringify(programmeJson, null, 2);
   }
 
   async getResults(pmuDate: string, reunionNum: string, courseNum: string, toJson: boolean = true) {
@@ -66,10 +69,10 @@ export class PmuService {
   }
 
   async getCourses(pmuDate: string) {
-    const programme = await this.getProgramme(pmuDate);
+    const programme = await this.getProgramme(pmuDate) as ProgrammeResponse;
     let courses: Record<string, string[]> = {};
 
-    programme.reunions.forEach((reunion: any) => {
+    programme.programme.reunions.forEach((reunion: any) => {
       courses[reunion.numOfficiel] = [];
       reunion.courses.forEach((course: any) => {
         courses[reunion.numOfficiel].push(course.numExterne);

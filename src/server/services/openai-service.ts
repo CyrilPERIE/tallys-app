@@ -1,17 +1,17 @@
 import { PROMPT_PREDICT_RACE } from "@/lib/constants/prompts";
 import { URLS } from "@/lib/constants/urls";
 import { OpenAI } from "openai";
-import { PmuService } from "./pmu-service";
+import { PmuAPIService } from "@/server/services/pmu-api-service";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 export class OpenaiService {
-  private pmuService: PmuService;
+  private pmuService: PmuAPIService;
 
   constructor() {
-    this.pmuService = new PmuService();
+    this.pmuService = new PmuAPIService();
   }
 
   async generateCompletion(content: string, toJson: boolean = false) {
@@ -39,19 +39,19 @@ export class OpenaiService {
       reunionNum,
       courseNum,
       false
-    );
+    ) as string;
     const pronosticsDetaille = await this.pmuService.getPronosticsDetaille(
       pmuDate,
       reunionNum,
       courseNum,
       false
-    );
+    ) as string;
     const rapportsDefinitifs = await this.pmuService.getRapportsDefinitifs(
       pmuDate,
       reunionNum,
       courseNum,
       false
-    );
+    ) as string;
     const prompt = PROMPT_PREDICT_RACE(
       pronostics,
       pronosticsDetaille,

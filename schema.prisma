@@ -9,7 +9,7 @@ generator client {
 
 model Identifiable {
   id           Int    @id @default(autoincrement())
-  code         String
+  code         String @unique
   libelleCourt String
   libelleLong  String
 }
