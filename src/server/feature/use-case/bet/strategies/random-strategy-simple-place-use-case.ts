@@ -3,7 +3,7 @@ import { PmuAPIService } from "@/server/services/external/pmu-api-service";
 import { courseIdentifiersToCourseId } from "@/lib/utils/pmu";
 import { CourseIdentifiers } from "@/lib/types/pmu";
 
-export const randomStrategySimplePlace = async (
+export const randomStrategySimplePlaceUseCase = async (
   courseIdentifiers: CourseIdentifiers
 ) => {
   const { date, race, course } = courseIdentifiers;
