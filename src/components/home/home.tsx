@@ -34,7 +34,6 @@ export default function Home({ className }: { className?: string }) {
         <Row className={cn("items-center justify-center gap-4", className)}>
             <RaceDisplayTable courseId={courseId} className="h-full flex-1 items-center justify-center bg-red-500" />
             <RaceSelection setCourseId={setCourseId} className="h-full items-center justify-center bg-blue-500 w-xl" />
-            <button onClick={() => simulateByDaysAction(pmuDates)}>Simulate</button>
         </Row>
     );
 }
