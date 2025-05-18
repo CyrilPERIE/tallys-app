@@ -1,6 +1,5 @@
 import { Column, Row } from "@/components/ui/layout";
-import { amountToDisplay } from "@/lib/utils/label";
-import { courseIdToDomain } from "@/lib/utils/pmu";
+import { amountToDisplay, courseIdToDisplay } from "@/lib/utils/label";
 
 type highestOddsWinProps = {
   courseId: string;
@@ -12,7 +11,7 @@ export const StatsHiggestOddsWin = () => {
     courseId: "19112024R4C3",
     odds: 19.6,
   };
-  const { date, race, course } = courseIdToDomain(highestOddsWin.courseId);
+  const { date, race, course } = courseIdToDisplay(highestOddsWin.courseId);
   const oddsToDisplay = amountToDisplay(highestOddsWin.odds);
   return (
     <Column className="items-center justify-center gap-2">

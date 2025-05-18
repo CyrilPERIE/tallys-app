@@ -1,6 +1,5 @@
 import { Column } from "@/components/ui/layout";
-import { courseIdToDomain } from "@/lib/utils/pmu";
-import { amountToDisplay } from "@/lib/utils/label";
+import { amountToDisplay, courseIdToDisplay } from "@/lib/utils/label";
 
 type MostProfitableRaceProps = {
   courseId: string;
@@ -12,7 +11,7 @@ export const StatsMostProfitableRace = () => {
     courseId: "06032022R1C1",
     profit: 53.28,
   };
-  const { date, race, course } = courseIdToDomain(mostProfitableRace.courseId);
+  const { date, race, course } = courseIdToDisplay(mostProfitableRace.courseId);
   const profitToDisplay = amountToDisplay(mostProfitableRace.profit);
   return (
     <Column className="items-center justify-center gap-2">
