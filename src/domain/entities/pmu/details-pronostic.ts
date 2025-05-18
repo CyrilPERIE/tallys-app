@@ -1,4 +1,4 @@
-import { NomNumPMU, CommentaireSource } from "@/lib/types/pmu/common";
+import { NomNumPMU, CommentaireSource } from "@/domain/entities/pmu/common";
 
 export interface PronosticsDetaillesResponse {
   commentaire: CommentaireSource;

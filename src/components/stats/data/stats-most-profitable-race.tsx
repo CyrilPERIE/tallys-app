@@ -1,8 +1,6 @@
-import { Row } from "@/components/ui/layout";
 import { Column } from "@/components/ui/layout";
-import { courseIdToDomain } from "@/lib/utils/pmu-to-domain";
-
-import { amountToDisplay } from "@/lib/utils/pmu-to-domain";
+import { courseIdToDomain } from "@/lib/utils/pmu";
+import { amountToDisplay } from "@/lib/utils/label";
 
 type MostProfitableRaceProps = {
   courseId: string;

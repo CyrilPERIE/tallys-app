@@ -1,4 +1,4 @@
-import { TauxContribution } from "@/lib/types/pmu/common";
+import { TauxContribution } from "@/domain/entities/pmu/common";
 
 export interface Cagnotte {
   numCourse: number;

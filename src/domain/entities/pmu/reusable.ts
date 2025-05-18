@@ -1,4 +1,4 @@
-import { Identifiable } from "@/lib/types/pmu/common";
+import { Identifiable } from "@/domain/entities/pmu/common";
 
 export interface CourseHippodrome extends Identifiable {
   codeHippodrome: string;

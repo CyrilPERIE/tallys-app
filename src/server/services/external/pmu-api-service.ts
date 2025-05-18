@@ -1,8 +1,8 @@
 import { URLS } from "@/lib/constants/urls";
-import { PronosticsDetaillesResponse } from "@/lib/types/pmu/details-pronostic";
-import { PronosticsResponse } from "@/lib/types/pmu/pronostic";
-import { RapportsDefinitifsResponse } from "@/lib/types/pmu/rapport";
-import { ProgrammeResponse } from "@/lib/types/pmu/programme";
+import { PronosticsDetaillesResponse } from "@/domain/entities/pmu/details-pronostic";
+import { PronosticsResponse } from "@/domain/entities/pmu/pronostic";
+import { RapportsDefinitifsResponse } from "@/domain/entities/pmu/rapport";
+import { ProgrammeResponse } from "@/domain/entities/pmu/programme";
 
 export class PmuAPIService {
   async getPronostics(
@@ -14,7 +14,8 @@ export class PmuAPIService {
     const pronosticResponse = await fetch(
       URLS.PMU.PRONOSTIC(pmuDate, reunionNum, courseNum)
     );
-    const pronosticJson = await pronosticResponse.json() as PronosticsResponse;
+    const pronosticJson =
+      (await pronosticResponse.json()) as PronosticsResponse;
     return toJson
       ? pronosticJson
       : JSON.stringify(pronosticJson.pronostics, null, 2);
@@ -29,7 +30,8 @@ export class PmuAPIService {
     const pronosticsDetailleResponse = await fetch(
       URLS.PMU.PRONOSTICS_DETAILLES(pmuDate, reunionNum, courseNum)
     );
-    const pronosticsDetailleJson = await pronosticsDetailleResponse.json() as PronosticsDetaillesResponse;
+    const pronosticsDetailleJson =
+      (await pronosticsDetailleResponse.json()) as PronosticsDetaillesResponse;
     return toJson
       ? pronosticsDetailleJson
       : JSON.stringify(pronosticsDetailleJson, null, 2);
@@ -44,7 +46,8 @@ export class PmuAPIService {
     const rapportsDefinitifsResponse = await fetch(
       URLS.PMU.RAPPORTS_DEFINITIFS(pmuDate, reunionNum, courseNum)
     );
-    const rapportsDefinitifsJson = await rapportsDefinitifsResponse.json() as RapportsDefinitifsResponse;
+    const rapportsDefinitifsJson =
+      (await rapportsDefinitifsResponse.json()) as RapportsDefinitifsResponse;
     return toJson
       ? rapportsDefinitifsJson
       : JSON.stringify(rapportsDefinitifsJson, null, 2);
@@ -52,24 +55,40 @@ export class PmuAPIService {
 
   async getProgramme(pmuDate: string, toJson: boolean = true) {
     const programmeResponse = await fetch(URLS.PMU.PROGRAMME(pmuDate));
-    const programmeJson = await programmeResponse.json() as ProgrammeResponse;
+    const programmeJson = (await programmeResponse.json()) as ProgrammeResponse;
     return toJson ? programmeJson : JSON.stringify(programmeJson, null, 2);
   }
 
-  async getResults(pmuDate: string, reunionNum: string, courseNum: string, toJson: boolean = true) {
-    const resultsResponse = await fetch(URLS.PMU.COURSE(pmuDate, reunionNum, courseNum));
+  async getResults(
+    pmuDate: string,
+    reunionNum: string,
+    courseNum: string,
+    toJson: boolean = true
+  ) {
+    const resultsResponse = await fetch(
+      URLS.PMU.COURSE(pmuDate, reunionNum, courseNum)
+    );
     const resultsJson = await resultsResponse.json();
     const ordreArrivee = resultsJson.ordreArrivee;
     return toJson ? ordreArrivee : JSON.stringify(ordreArrivee, null, 2);
   }
 
-  async getRandomHorseFromCourse(pmuDate: string, reunionNum: string, courseNum: string) {
-    const results = await this.getResults(pmuDate, reunionNum, courseNum, false);
+  async getRandomHorseFromCourse(
+    pmuDate: string,
+    reunionNum: string,
+    courseNum: string
+  ) {
+    const results = await this.getResults(
+      pmuDate,
+      reunionNum,
+      courseNum,
+      false
+    );
     return results[Math.floor(Math.random() * results.length)][0];
   }
 
   async getCourses(pmuDate: string) {
-    const programme = await this.getProgramme(pmuDate) as ProgrammeResponse;
+    const programme = (await this.getProgramme(pmuDate)) as ProgrammeResponse;
     let courses: Record<string, string[]> = {};
 
     programme.programme.reunions.forEach((reunion: any) => {

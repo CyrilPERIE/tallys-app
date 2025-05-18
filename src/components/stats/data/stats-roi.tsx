@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { amountToDisplay } from "@/lib/utils/pmu-to-domain";
+import { amountToDisplay } from "@/lib/utils/label";
 
 export const StatsROI = ({ className }: { className?: string }) => {
   const roi = 3.27;

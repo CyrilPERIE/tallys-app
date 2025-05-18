@@ -1,7 +1,11 @@
-import { Timestamped } from "@/lib/types/pmu/common";
-import { Pays, Cagnotte, ParisEvenement } from "@/lib/types/pmu/miscellaneous";
-import { CourseElement } from "@/lib/types/pmu/course";
-import { Meteo, ReunionHippodrome } from "@/lib/types/pmu/reusable";
+import { Timestamped } from "@/domain/entities/pmu/common";
+import {
+  Pays,
+  Cagnotte,
+  ParisEvenement,
+} from "@/domain/entities/pmu/miscellaneous";
+import { CourseElement } from "@/domain/entities/pmu/course";
+import { Meteo, ReunionHippodrome } from "@/domain/entities/pmu/reusable";
 
 export interface ProgrammeResponse {
   programme: Programme;

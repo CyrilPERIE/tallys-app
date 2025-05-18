@@ -1,5 +1,6 @@
 import { Column, Row } from "@/components/ui/layout";
-import { courseIdToDomain, amountToDisplay } from "@/lib/utils/pmu-to-domain";
+import { amountToDisplay } from "@/lib/utils/label";
+import { courseIdToDomain } from "@/lib/utils/pmu";
 
 type highestOddsWinProps = {
   courseId: string;
