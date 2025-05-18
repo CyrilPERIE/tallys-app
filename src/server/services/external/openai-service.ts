@@ -1,7 +1,7 @@
 import { PROMPT_PREDICT_RACE } from "@/lib/constants/prompts";
 import { URLS } from "@/lib/constants/urls";
 import { OpenAI } from "openai";
-import { PmuAPIService } from "@/server/services/pmu-api-service";
+import { PmuAPIService } from "@/server/services/external/pmu-api-service";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -34,24 +34,24 @@ export class OpenaiService {
   }
 
   async predictRace(pmuDate: string, reunionNum: string, courseNum: string) {
-    const pronostics = await this.pmuService.getPronostics(
+    const pronostics = (await this.pmuService.getPronostics(
       pmuDate,
       reunionNum,
       courseNum,
       false
-    ) as string;
-    const pronosticsDetaille = await this.pmuService.getPronosticsDetaille(
+    )) as string;
+    const pronosticsDetaille = (await this.pmuService.getPronosticsDetaille(
       pmuDate,
       reunionNum,
       courseNum,
       false
-    ) as string;
-    const rapportsDefinitifs = await this.pmuService.getRapportsDefinitifs(
+    )) as string;
+    const rapportsDefinitifs = (await this.pmuService.getRapportsDefinitifs(
       pmuDate,
       reunionNum,
       courseNum,
       false
-    ) as string;
+    )) as string;
     const prompt = PROMPT_PREDICT_RACE(
       pronostics,
       pronosticsDetaille,
@@ -87,7 +87,8 @@ export class OpenaiService {
           );
           if (!results?.[0]) continue;
           // const pronostics = await this.predictRace(programme, reunion, course);
-          const pronostics = results[Math.floor(Math.random() * results.length)][0];
+          const pronostics =
+            results[Math.floor(Math.random() * results.length)][0];
           if (!pronostics) continue;
           if (isGagnantSuccess(pronostics, results)) {
             gagnant_success++;
@@ -96,7 +97,9 @@ export class OpenaiService {
             place_success++;
           }
           counter++;
-          console.log(`${counter}/${total_courses} - ${gagnant_success} - ${place_success}`);
+          console.log(
+            `${counter}/${total_courses} - ${gagnant_success} - ${place_success}`
+          );
         }
       }
     }

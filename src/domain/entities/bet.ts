@@ -1,5 +1,5 @@
-import { Race } from "./race";
-import { Horse } from "./horse";
+import { Race } from "@/domain/entities/race";
+import { Horse } from "@/domain/entities/horse";
 
 export type Bet = {
     id: string;
