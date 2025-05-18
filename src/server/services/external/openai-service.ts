@@ -5,6 +5,8 @@ const openai = new OpenAI({
 });
 
 export class OpenaiService {
+  //TODO: Ajouter une clé avec un schema zod pour la réponse. On redemande la réponse si elle ne respecte pas le schema zod. (max 3 tentatives)
+  //Du coup il faudra retirer la clé toJson
   async generateCompletion(content: string, toJson: boolean = false) {
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
