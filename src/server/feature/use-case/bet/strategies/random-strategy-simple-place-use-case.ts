@@ -6,9 +6,9 @@ import { CourseIdentifiers } from "@/lib/types/pmu";
 export const randomStrategySimplePlaceUseCase = async (
   courseIdentifiers: CourseIdentifiers
 ) => {
-  const { date, race, course } = courseIdentifiers;
+  const { pmuDate, reunionNum, courseNum } = courseIdentifiers;
   const pmuService = new PmuAPIService();
-  const horse = await pmuService.getRandomHorseFromCourse(date, race, course);
+  const horse = await pmuService.getRandomHorseFromCourse(pmuDate, reunionNum, courseNum);
   const betService = new BetService();
   const betCreated = await betService.create({
     courseId: courseIdentifiersToCourseId(courseIdentifiers),

@@ -1,4 +1,4 @@
-import { Column, Row } from "@/components/ui/layout";
+import { Column } from "@/components/ui/layout";
 import { amountToDisplay, courseIdToDisplay } from "@/lib/utils/label";
 
 type highestOddsWinProps = {

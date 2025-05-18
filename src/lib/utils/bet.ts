@@ -1,14 +1,18 @@
-//TODO: Add type
-const isPlaceSuccess = (pronostics: any, results: any) => {
-  const val = parseInt(pronostics);
+import { PmuAPIService } from "@/server/services/external/pmu-api-service";
+import { CourseIdentifiers } from "@/lib/types/pmu";
+
+export const isPlaceSuccess = async (pronostics: number, {pmuDate, reunionNum, courseNum}: CourseIdentifiers) => {
+  const pmuService = new PmuAPIService();
+  const results = await pmuService.getResults(pmuDate, reunionNum, courseNum);
   return (
-    results[0].includes(val) ||
-    results[1].includes(val) ||
-    (results.length > 6 && results[2].includes(val))
+    results[0].includes(pronostics) ||
+    results[1].includes(pronostics) ||
+    (results.length > 6 && results[2].includes(pronostics))
   );
 };
 
-const isGagnantSuccess = (pronostics: any, results: any) => {
-  const val = parseInt(pronostics);
-  return results[0].includes(val);
+export const isGagnantSuccess = async (pronostics: number, {pmuDate, reunionNum, courseNum}: CourseIdentifiers) => {
+  const pmuService = new PmuAPIService();
+  const results = await pmuService.getResults(pmuDate, reunionNum, courseNum);
+  return results[0].includes(pronostics);
 };

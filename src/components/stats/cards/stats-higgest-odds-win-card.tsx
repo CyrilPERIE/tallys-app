@@ -5,7 +5,6 @@ import {
   CardTitle,
   CardInfo,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
 import { texts } from "@/lib/constants/texts";
 import { Row } from "@/components/ui/layout";

@@ -1,6 +1,4 @@
 import { cn } from "@/lib/utils";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CircleHelpIcon } from "lucide-react";
 
 export const Row = ({
   children,

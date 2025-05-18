@@ -18,6 +18,7 @@ export class OpenaiService {
           result?.replace(/^```json\n/, "").replace(/\n```$/, "") || "{}";
         return JSON.parse(result as string);
       } catch (error) {
+        console.error(error);
         return {};
       }
     }

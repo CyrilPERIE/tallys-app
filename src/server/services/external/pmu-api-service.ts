@@ -89,7 +89,7 @@ export class PmuAPIService {
 
   async getCourses(pmuDate: string) {
     const programme = (await this.getProgramme(pmuDate)) as ProgrammeResponse;
-    let courses: Record<string, string[]> = {};
+    const courses: Record<string, string[]> = {};
 
     programme.programme.reunions.forEach((reunion: any) => {
       courses[reunion.numOfficiel] = [];
@@ -101,7 +101,7 @@ export class PmuAPIService {
   }
 
   async getCoursesByPmuDates(pmuDates: string[]) {
-    let programmes: Record<string, Record<string, string[]>> = {};
+    const programmes: Record<string, Record<string, string[]>> = {};
     for (const pmuDate of pmuDates) {
       const courses = await this.getCourses(pmuDate);
       programmes[pmuDate] = courses;

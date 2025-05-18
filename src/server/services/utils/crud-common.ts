@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma/prisma";
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 type PrismaModels = {
   [K in keyof PrismaClient]: PrismaClient[K] extends {

@@ -1,12 +1,11 @@
 import { Bet } from "@prisma/client";
-import { _MONTH_MAP } from "@/lib/constants/constants";
 import { CourseIdentifiers } from "@/lib/types/pmu";
 
 export const courseIdentifiersToCourseId = (
   courseIdentifiers: CourseIdentifiers
 ) => {
-  const { date, race, course } = courseIdentifiers;
-  return `${date}${race}${course}`;
+  const { pmuDate, reunionNum, courseNum } = courseIdentifiers;
+  return `${pmuDate}${reunionNum}${courseNum}`;
 };
 
 export const computeProfit = (bet: Bet) => {
