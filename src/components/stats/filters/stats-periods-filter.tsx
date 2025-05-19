@@ -46,7 +46,9 @@ const periods: Period[] = [
 ];
 
 export const StatsPeriodFilter = ({ className }: { className?: string }) => {
-  const { periodFilter, updatePeriodFilter } = useFiltersStore((state) => state);
+  const { periodFilter, updatePeriodFilter } = useFiltersStore(
+    (state) => state
+  );
   const handlePeriodClick = (label: PeriodLabel) => {
     const period = periods.find((p) => p.label === label);
     if (period) {
@@ -57,12 +59,7 @@ export const StatsPeriodFilter = ({ className }: { className?: string }) => {
   const isActive = (label: PeriodLabel) => label === periodFilter;
 
   return (
-    <Row
-      className={cn(
-        "justify-start gap-6 bg-white rounded-full py-2 px-4",
-        className
-      )}
-    >
+    <Row className={cn("", className)}>
       {periods.map((_period) => {
         const active = isActive(_period.label);
         return (
