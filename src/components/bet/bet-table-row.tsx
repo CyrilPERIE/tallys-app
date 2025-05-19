@@ -26,7 +26,7 @@ export const BetTableRow = ({
       <TableCell className="text-center">{dateToDisplay(date)}</TableCell>
       <TableCell className="text-center">{_amountToDisplay}</TableCell>
       <TableCell className="text-center hover:underline">
-        <a target="_blank" rel="noopener noreferrer" href={`https://www.pmu.fr/turf/${pmuDate}/R${reunionNum}/C${courseNum}`}>{race}</a>
+        <a target="_blank" rel="noopener noreferrer" href={`https://www.pmu.fr/turf/${pmuDate}/R${reunionNum}/C${courseNum}`}>{`R${reunionNum} C${courseNum}`}</a>
       </TableCell>
       <TableCell className="text-center">{horse}</TableCell>
       <TableCell className={`text-center ${profitColor}`}>

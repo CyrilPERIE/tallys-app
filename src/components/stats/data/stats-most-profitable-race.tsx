@@ -1,5 +1,7 @@
+"use client";
+
 import { Column } from "@/components/ui/layout";
-import { amountToDisplay, courseIdToDisplay } from "@/lib/utils/label";
+import { amountToDisplay, courseIdToDisplay, datePmuToDisplay } from "@/lib/utils/label";
 
 type MostProfitableRaceProps = {
   courseId: string;
@@ -11,18 +13,18 @@ export const StatsMostProfitableRace = () => {
     courseId: "06032022R1C1",
     profit: 53.28,
   };
-  const { date, race, course } = courseIdToDisplay(mostProfitableRace.courseId);
+  const { pmuDate, reunionNum, courseNum } = courseIdToDisplay(mostProfitableRace.courseId);
   const profitToDisplay = amountToDisplay(mostProfitableRace.profit);
   return (
     <Column className="items-center justify-center gap-2">
       <p className="text-2xl font-bold">{profitToDisplay}</p>
       <div className="flex flex-col text-slate-500">
         <p>
-          <span>{race}</span>
+          <span>{reunionNum}</span>
           <span> - </span>
-          <span>{course}</span>
+          <span>{courseNum}</span>
         </p>
-        <p>{date}</p>
+        <p>{pmuDate}</p>
       </div>
     </Column>
   );

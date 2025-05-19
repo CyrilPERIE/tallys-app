@@ -15,8 +15,8 @@ export const StatsMostProfitableRaceCard = ({ className }: { className?: string 
     <Card className={cn("", className)}>
       <CardHeader>
         <Row className="items-start">
-          <CardTitle>{texts.stats.highestOddsWin.title}</CardTitle>
-          <CardInfo>{texts.stats.highestOddsWin.description}</CardInfo>
+          <CardTitle>{texts.stats.mostProfitableRace.title}</CardTitle>
+          <CardInfo>{texts.stats.mostProfitableRace.description}</CardInfo>
         </Row>
       </CardHeader>
       <CardContent>
