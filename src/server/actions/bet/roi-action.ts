@@ -16,6 +16,5 @@ export const getROIAction = async ({ strategy }: { strategy: BetStrategy }) => {
   const profit = await getProfitAction({ strategy });
   const roi = (profit / amountSpend) * 100;
   const roiToDisplay = roi.toFixed(2).replace(".", ",");
-  console.log(roiToDisplay);
   return roiToDisplay;
 };

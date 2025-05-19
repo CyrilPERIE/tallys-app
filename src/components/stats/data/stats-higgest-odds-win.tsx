@@ -2,7 +2,7 @@
 
 import { Column } from "@/components/ui/layout";
 import { courseIdToDisplay, datePmuToDisplay } from "@/lib/utils/label";
-import { getHiggestOddsWinAction } from "@/server/actions/bet/higgest-odds-win-action";
+import { getHiggestOddsWinAction } from "@/server/actions/bet/get-higgest-odds-win-action";
 import { useState, useEffect } from "react";
 import { useFiltersStore } from "@/stores/filters/provider";
 import { CourseIdentifiers } from "@/lib/types/pmu";

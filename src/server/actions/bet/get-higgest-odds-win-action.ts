@@ -14,7 +14,6 @@ export const getHiggestOddsWinAction = async ({ strategy }: { strategy: BetStrat
       courseId: true,
     },
   });
-  console.log(highestOddsWin);
   if (!highestOddsWin._max?.odds || !highestOddsWin._max?.courseId) {
     return {
       odds: 0,
