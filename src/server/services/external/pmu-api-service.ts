@@ -3,6 +3,7 @@ import { PronosticsDetaillesResponse } from "@/domain/entities/pmu/details-prono
 import { PronosticsResponse } from "@/domain/entities/pmu/pronostic";
 import { RapportsDefinitifsResponse } from "@/domain/entities/pmu/rapport";
 import { ProgrammeResponse } from "@/domain/entities/pmu/programme";
+import { Bet } from "@prisma/client";
 
 export class PmuAPIService {
   async getPronostics(
@@ -62,29 +63,31 @@ export class PmuAPIService {
   async getResults(
     pmuDate: string,
     reunionNum: string,
-    courseNum: string,
-    toJson: boolean = true
+    courseNum: string
   ) {
     const resultsResponse = await fetch(
       URLS.PMU.COURSE(pmuDate, reunionNum, courseNum)
     );
     const resultsJson = await resultsResponse.json();
     const ordreArrivee = resultsJson.ordreArrivee;
-    return toJson ? ordreArrivee : JSON.stringify(ordreArrivee, null, 2);
+    return ordreArrivee;
   }
 
   async getRandomHorseFromCourse(
     pmuDate: string,
     reunionNum: string,
     courseNum: string
-  ) {
+  ): Promise<Bet["horseNums"]>  {
     const results = await this.getResults(
       pmuDate,
       reunionNum,
-      courseNum,
-      false
+      courseNum
     );
-    return results[Math.floor(Math.random() * results.length)][0];
+    console.log("results", results);
+    const lenght = results.length;
+    const random = Math.floor(Math.random() * lenght);
+    const choice = results[random];
+    return choice;
   }
 
   async getCourses(pmuDate: string) {

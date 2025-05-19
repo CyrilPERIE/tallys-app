@@ -10,7 +10,7 @@ generator client {
 model Bet {
   id        Int         @id @default(autoincrement())
   courseId  String
-  strategy  BetStrategy @default(Random)
+  strategy  BetStrategy
   betType   BetType     @default(E_SIMPLE_PLACE)
   amount    Int
   horseNums Int[]
