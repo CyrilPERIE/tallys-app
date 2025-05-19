@@ -16,6 +16,7 @@ model Bet {
   horseNums Int[]
   betStatus BetStatus   @default(PENDING)
   gain      Float?
+  odds      Float?
   profit    Float?
 
   createdAt DateTime @default(now())

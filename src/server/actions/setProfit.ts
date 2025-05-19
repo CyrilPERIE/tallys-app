@@ -8,9 +8,9 @@ import { BetStatus } from "@prisma/client";
 export const setProfit = async () => {
   const betService = new BetService();
   const bets = await betService.findAll({
-    where: {
-      betStatus: BetStatus.PENDING,
-    },
+    // where: {
+    //   betStatus: BetStatus.PENDING,
+    // },
   });
   for (const bet of bets) {
     const courseIdentifiers = courseIdToCourseIdentifiers(bet.courseId);
@@ -21,7 +21,7 @@ export const setProfit = async () => {
       courseIdentifiers
     );
     if (betGain.isRaceOver) {
-      const { betStatus, gain } = betGain;
+      const { betStatus, gain, odds } = betGain;
       const profit = gain
         ? +(gain - bet.amount).toFixed(2)
         : -bet.amount.toFixed(2);
@@ -29,6 +29,7 @@ export const setProfit = async () => {
         betStatus,
         gain: gain,
         profit: profit,
+        odds: odds,
       });
     }
   }
