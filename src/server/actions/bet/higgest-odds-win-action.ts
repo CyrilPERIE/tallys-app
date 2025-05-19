@@ -15,8 +15,14 @@ export const getHiggestOddsWinAction = async ({ strategy }: { strategy: BetStrat
     },
   });
   console.log(highestOddsWin);
+  if (!highestOddsWin._max?.odds || !highestOddsWin._max?.courseId) {
+    return {
+      odds: 0,
+      courseId: "",
+    };
+  }
   return {
-    odds: highestOddsWin._max?.odds,
-    courseId: highestOddsWin._max?.courseId,
+    odds: highestOddsWin._max.odds,
+    courseId: highestOddsWin._max.courseId,
   };
 };

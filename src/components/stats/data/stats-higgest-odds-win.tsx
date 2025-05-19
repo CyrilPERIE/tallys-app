@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { useFiltersStore } from "@/stores/filters/provider";
 import { CourseIdentifiers } from "@/lib/types/pmu";
 
+
 export const StatsHiggestOddsWin = () => {
   const strategyFilter = useFiltersStore((state) => state.strategyFilter);
 
@@ -15,14 +16,12 @@ export const StatsHiggestOddsWin = () => {
 
   useEffect(() => {
     getHiggestOddsWinAction({ strategy: strategyFilter }).then((highestOddsWin) => {
-      console.log(highestOddsWin);
-      if (!highestOddsWin.courseId || !highestOddsWin.odds) return;
       setCourse(courseIdToDisplay(highestOddsWin.courseId));
       setOddsToDisplay(highestOddsWin.odds.toFixed(2));
     });
   }, [strategyFilter]);
 
-  if (! course || !oddsToDisplay) return null;
+  if (!course) return null;
 
   return (
     <Column className="items-center justify-center gap-2">
