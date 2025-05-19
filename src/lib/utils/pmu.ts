@@ -1,5 +1,6 @@
-import { Bet } from "@prisma/client";
+import { Bet, BetType } from "@prisma/client";
 import { CourseIdentifiers } from "@/lib/types/pmu";
+import { RapportsReponse } from "@/domain/entities/pmu/rapport";
 
 export const courseIdentifiersToCourseId = (
   courseIdentifiers: CourseIdentifiers
@@ -29,7 +30,25 @@ export const computeProfit = (bet: Bet) => {
   return profit || profit === 0 ? profit - amount : 0;
 };
 
-export const horseNumsToCombination = (horseNums: number | Bet["horseNums"]): string => {
+export const horseNumsToCombination = (
+  horseNums: number | Bet["horseNums"]
+): string => {
   if (typeof horseNums === "number") return horseNums.toString();
   return horseNums.join("-");
+};
+
+export const getFavoriteCombination = (rapport: RapportsReponse) => {
+  const { rapportsParticipant } = rapport;
+  const favorisHorse = rapportsParticipant.find(
+    (p) => p.favoris && p.numPmu !== undefined
+  );
+  if (favorisHorse) return favorisHorse.numerosParticipant ?? [];
+
+  const bestRapportHorse = rapportsParticipant
+    .filter((p) => p.rapportDirect !== undefined && p.numerosParticipant !== undefined)
+    .reduce((prev, curr) =>
+      curr.rapportDirect! > prev.rapportDirect! ? curr : prev
+    );
+  if (!bestRapportHorse) return [];
+  return bestRapportHorse?.numerosParticipant ?? [];
 };

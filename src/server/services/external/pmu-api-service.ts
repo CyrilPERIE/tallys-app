@@ -1,9 +1,12 @@
 import { URLS } from "@/lib/constants/urls";
 import { PronosticsDetaillesResponse } from "@/domain/entities/pmu/details-pronostic";
 import { PronosticsResponse } from "@/domain/entities/pmu/pronostic";
-import { RapportsDefinitifsResponse } from "@/domain/entities/pmu/rapport";
+import {
+  RapportsDefinitifsResponse,
+  RapportsReponse,
+} from "@/domain/entities/pmu/rapport";
 import { ProgrammeResponse } from "@/domain/entities/pmu/programme";
-import { Bet } from "@prisma/client";
+import { Bet, BetType } from "@prisma/client";
 import { CourseIdentifiers } from "@/lib/types/pmu";
 
 export class PmuAPIService {
@@ -55,6 +58,19 @@ export class PmuAPIService {
     return toJson
       ? rapportsDefinitifsJson
       : JSON.stringify(rapportsDefinitifsJson, null, 2);
+  }
+
+  async getRapports(
+    courseIdentifiers: CourseIdentifiers,
+    betType: BetType = BetType.E_SIMPLE_PLACE
+  ) {
+    const { pmuDate, reunionNum, courseNum } = courseIdentifiers;
+    const rapportsResponse = await fetch(
+      URLS.PMU.RAPPORTS_BY_BET_TYPE(pmuDate, reunionNum, courseNum, betType)
+    );
+    if (rapportsResponse.status !== 200) return;
+    const rapportsJson = (await rapportsResponse.json()) as RapportsReponse;
+    return rapportsJson;
   }
 
   async getProgramme(pmuDate: string, toJson: boolean = true) {

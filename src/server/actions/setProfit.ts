@@ -8,9 +8,9 @@ import { BetStatus } from "@prisma/client";
 export const setProfit = async () => {
   const betService = new BetService();
   const bets = await betService.findAll({
-    // where: {
-    //   betStatus: BetStatus.PENDING,
-    // },
+    where: {
+      betStatus: BetStatus.PENDING,
+    },
   });
   for (const bet of bets) {
     const courseIdentifiers = courseIdToCourseIdentifiers(bet.courseId);

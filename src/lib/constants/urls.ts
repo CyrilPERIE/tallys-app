@@ -18,7 +18,7 @@ export const URLS = {
       pmuDate: string,
       reunionNum: string,
       courseNum: string,
-      betType: keyof typeof BetType
+      betType: BetType
     ) =>
       `${BASE_PMU_URL}/programme/${pmuDate}/R${reunionNum}/C${courseNum}/rapports/${betType}`,
     RAPPORTS_DEFINITIFS: (
