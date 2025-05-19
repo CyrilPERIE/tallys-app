@@ -38,8 +38,8 @@ export const testAction = async () => {
           reunionNum: reunion,
           courseNum: course,
         };
-        const bet = await Foule_v1_0SimplePlaceUseCase(courseIdentifiers);
-        const bet2 = await RandomSimplePlaceUseCase(courseIdentifiers);
+        await Foule_v1_0SimplePlaceUseCase(courseIdentifiers);
+        await RandomSimplePlaceUseCase(courseIdentifiers);
       }
     }
   }

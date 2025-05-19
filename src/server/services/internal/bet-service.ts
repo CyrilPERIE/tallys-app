@@ -1,4 +1,4 @@
-import { Bet, BetStrategy } from "@prisma/client";
+import { Bet } from "@prisma/client";
 import prisma from "@/lib/prisma/prisma";
 import { Prisma } from "@prisma/client";
 
