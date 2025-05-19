@@ -3,14 +3,17 @@ import prisma from "@/lib/prisma/prisma";
 import { Prisma } from "@prisma/client";
 
 type createProps = Pick<Bet, "amount" | "courseId" | "horseNums" | "strategy">;
-type findAllProps = {where?: Prisma.BetWhereInput};
+type findAllWhereProps = {where?: Prisma.BetWhereInput};
+type findAllOrderByProps = {orderBy?: Prisma.BetOrderByWithRelationInput};
+type findAllTakeProps = {take?: number};
+type findAllProps = findAllWhereProps & findAllOrderByProps & findAllTakeProps;
 export class BetService {
     async create(data: createProps) {
         return await prisma.bet.create({ data });
     }
 
-    async findAll(where?: findAllProps) {
-        return await prisma.bet.findMany({ where: where?.where });
+    async findAll(props?: findAllProps) {
+        return await prisma.bet.findMany({ where: props?.where, orderBy: props?.orderBy, take: props?.take });
     }
     
     async update(id: number, data: Partial<Bet>) {

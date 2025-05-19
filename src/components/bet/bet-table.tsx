@@ -1,5 +1,6 @@
+"use client";
+
 import { cn } from "@/lib/utils";
-import { BetsMock } from "@/lib/mock/data";
 import { BetTableRow } from "@/components/bet/bet-table-row";
 import {
   Table,
@@ -9,10 +10,21 @@ import {
   TableBody,
   TableHead,
 } from "@/components/ui/table";
+import { useFiltersStore } from "@/stores/filters/provider";
+import { useEffect, useState } from "react";
+import { getLatestBetsAction } from "@/server/actions/bet/get-latest-bets-action";
+import { Bet } from "@prisma/client";
 
 const BetTableHeadLabel = ["Date", "Montant parié", "Course", "Cheval", "Profit"];
+
 export const BetTable = ({ className }: { className?: string }) => {
-  const bets = BetsMock;
+  const {strategyFilter} = useFiltersStore(state => state);
+  const [bets, setBets] = useState<Bet[]>([]);
+
+  //TODO: add loading state + voir pour ne pas faire de useEffect
+  useEffect(() => {
+    getLatestBetsAction(strategyFilter).then(setBets);
+  }, [strategyFilter]);
   return (
     <div className={cn("", className)}>
       <Table>

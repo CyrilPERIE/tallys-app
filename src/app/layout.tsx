@@ -21,15 +21,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="h-full">
-      <body
-        className={cn(inter.className, "min-h-full flex flex-col bg-[#f8f5f1]")}
-      >
+    <html lang="fr" className="h-screen">
+      <body className={cn(inter.className, "flex flex-col bg-[#f8f5f1]")}>
         <Header className="bg-white">
           <LogoName className="absolute left-4" />
           <Nav />
         </Header>
-        <main className="flex-1 px-24 py-4">
+        <main className="flex-1 min-h-0 px-24 py-4 overflow-auto">
           <FiltersStoreProvider>{children}</FiltersStoreProvider>
         </main>
         <Footer className="bg-white" />
