@@ -7,15 +7,17 @@ import {
   StatsMostProfitableRaceCard,
   StatsHiggestOddsWinCard,
 } from "@/components/stats";
-import { StatsPeriod } from "@/components/stats/stats-periods";
+import { StatsPeriodFilter } from "@/components/stats/stats-periods-filter";
 import { StatsCumulativeProfit } from "@/components/stats/stats-cumulative-profit-graph";
 import { BetTable } from "@/components/bet";
+import { StatsStrategyFilter } from "@/components/stats/stats-strategy-filter";
 
 
 export default function Stats({ className }: { className?: string }) {
   return (
     <Column className={cn("", className)}>
-      <StatsPeriod className="mb-4" />
+      <StatsPeriodFilter className="mb-4" />
+      <StatsStrategyFilter className="bg-white rounded-full py-2 px-4 cursor-pointer mb-4" />
       <Row className="flex-1">
         <Column className="flex-1">
           <Row className="">

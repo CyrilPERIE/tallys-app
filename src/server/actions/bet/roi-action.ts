@@ -4,6 +4,7 @@ import { getProfitAction } from "./get-profit-action";
 import { BetService } from "@/server/services/internal/bet-service";
 import { BetStrategy } from "@prisma/client";
 
+//TODO: add time period filter
 export const getROIAction = async ({ strategy }: { strategy: BetStrategy }) => {
   const betService = new BetService();
   const bets = await betService.findAll({

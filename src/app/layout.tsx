@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { Nav } from "@/components/header/nav";
 import { LogoName } from "@/components/identity/logo-name";
 import { texts } from "@/lib/constants/texts";
-import { PeriodStoreProvider } from "@/stores/periods/provider";
+import { FiltersStoreProvider } from "@/stores/filters/provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -30,7 +30,7 @@ export default function RootLayout({
           <Nav />
         </Header>
         <main className="flex-1 px-24 py-4">
-          <PeriodStoreProvider>{children}</PeriodStoreProvider>
+          <FiltersStoreProvider>{children}</FiltersStoreProvider>
         </main>
         <Footer className="bg-white" />
       </body>

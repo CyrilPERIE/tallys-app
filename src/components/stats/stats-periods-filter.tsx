@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 import { Row } from "@/components/ui/layout";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { PeriodLabel } from "@/stores/periods/store";
-import { usePeriodStore } from "@/stores/periods/provider";
+import { PeriodLabel } from "@/stores/filters/store";
+import { useFiltersStore } from "@/stores/filters/provider";
 
 type Period = {
   label: PeriodLabel;
@@ -45,16 +45,16 @@ const periods: Period[] = [
   },
 ];
 
-export const StatsPeriod = ({ className }: { className?: string }) => {
-  const { period, updatePeriod } = usePeriodStore((state) => state);
+export const StatsPeriodFilter = ({ className }: { className?: string }) => {
+  const { periodFilter, updatePeriodFilter } = useFiltersStore((state) => state);
   const handlePeriodClick = (label: PeriodLabel) => {
     const period = periods.find((p) => p.label === label);
     if (period) {
       period.action();
-      updatePeriod(label);
+      updatePeriodFilter(label);
     }
   };
-  const isActive = (label: PeriodLabel) => label === period;
+  const isActive = (label: PeriodLabel) => label === periodFilter;
 
   return (
     <Row

@@ -3,6 +3,7 @@
 import { BetService } from "@/server/services/internal/bet-service";
 import { BetStatus, BetStrategy } from "@prisma/client";
 
+//TODO: add time period filter
 export const getHitRateAction = async ({ strategy }: { strategy: BetStrategy }) => {
     const betService = new BetService();
     const betsWon = await betService.findAll({
