@@ -17,6 +17,13 @@ export const courseIdToCourseIdentifiers = (
   return { pmuDate, reunionNum, courseNum };
 };
 
+export const extractItemsFromPmuDate = (pmuDate: string) => {
+  const day = pmuDate.slice(0, 2);
+  const month = pmuDate.slice(2, 4);
+  const year = pmuDate.slice(4, 8);
+  return { day, month, year };
+};
+
 export const computeProfit = (bet: Bet) => {
   const { amount, profit } = bet;
   return profit || profit === 0 ? profit - amount : 0;

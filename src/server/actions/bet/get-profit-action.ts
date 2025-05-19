@@ -6,11 +6,13 @@ import { BetStrategy } from "@prisma/client";
 //TODO: add time period filter
 export const getProfitAction = async ({ strategy }: { strategy: BetStrategy }) => {
     const betService = new BetService();
-    const bets = await betService.findAll({
+    const profit = await betService.aggregate({
         where: {
             strategy,
         },
+        _sum: {
+            profit: true,
+        },
     });
-    const profit = bets.reduce((acc, bet) => acc + (bet.profit ?? 0), 0);
-    return profit;
+    return profit._sum?.profit ?? 0;
 }
