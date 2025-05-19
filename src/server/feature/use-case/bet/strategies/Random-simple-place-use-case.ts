@@ -3,14 +3,22 @@ import { PmuAPIService } from "@/server/services/external/pmu-api-service";
 import { courseIdentifiersToCourseId } from "@/lib/utils/pmu";
 import { CourseIdentifiers } from "@/lib/types/pmu";
 import { BetStrategy } from "@prisma/client";
+import { z } from "zod";
+
+const RandomSimplePlaceSchema = z.array(z.number());
+
 export const RandomSimplePlaceUseCase = async (
   courseIdentifiers: CourseIdentifiers
 ) => {
   const { pmuDate, reunionNum, courseNum } = courseIdentifiers;
   const pmuService = new PmuAPIService();
-  const horse = await pmuService.getRandomHorseFromCourse(pmuDate, reunionNum, courseNum);
+  const horse = await pmuService.getRandomParticipantFromCourse(
+    pmuDate,
+    reunionNum,
+    courseNum
+  );
+  if (!RandomSimplePlaceSchema.safeParse(horse).success) return null;
   const betService = new BetService();
-  console.log("BetStrategy", BetStrategy.Random);
   const betCreated = await betService.create({
     courseId: courseIdentifiersToCourseId(courseIdentifiers),
     horseNums: horse,

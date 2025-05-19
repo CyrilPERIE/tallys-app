@@ -4,6 +4,7 @@ import { PronosticsResponse } from "@/domain/entities/pmu/pronostic";
 import { RapportsDefinitifsResponse } from "@/domain/entities/pmu/rapport";
 import { ProgrammeResponse } from "@/domain/entities/pmu/programme";
 import { Bet } from "@prisma/client";
+import { CourseIdentifiers } from "@/lib/types/pmu";
 
 export class PmuAPIService {
   async getPronostics(
@@ -39,16 +40,18 @@ export class PmuAPIService {
   }
 
   async getRapportsDefinitifs(
-    pmuDate: string,
-    reunionNum: string,
-    courseNum: string,
+    courseIdentifiers: CourseIdentifiers,
     toJson: boolean = true
   ) {
+    const { pmuDate, reunionNum, courseNum } = courseIdentifiers;
     const rapportsDefinitifsResponse = await fetch(
       URLS.PMU.RAPPORTS_DEFINITIFS(pmuDate, reunionNum, courseNum)
     );
+    if (rapportsDefinitifsResponse.status === 204) {
+      return "Rapport definitif non disponible";
+    }
     const rapportsDefinitifsJson =
-      (await rapportsDefinitifsResponse.json()) as RapportsDefinitifsResponse;
+      (await rapportsDefinitifsResponse.json()) as RapportsDefinitifsResponse[];
     return toJson
       ? rapportsDefinitifsJson
       : JSON.stringify(rapportsDefinitifsJson, null, 2);
@@ -60,11 +63,8 @@ export class PmuAPIService {
     return toJson ? programmeJson : JSON.stringify(programmeJson, null, 2);
   }
 
-  async getResults(
-    pmuDate: string,
-    reunionNum: string,
-    courseNum: string
-  ) {
+  async getResults(courseIdentifiers: CourseIdentifiers) {
+    const { pmuDate, reunionNum, courseNum } = courseIdentifiers;
     const resultsResponse = await fetch(
       URLS.PMU.COURSE(pmuDate, reunionNum, courseNum)
     );
@@ -73,21 +73,22 @@ export class PmuAPIService {
     return ordreArrivee;
   }
 
-  async getRandomHorseFromCourse(
+  async getRandomParticipantFromCourse(
     pmuDate: string,
     reunionNum: string,
     courseNum: string
-  ): Promise<Bet["horseNums"]>  {
-    const results = await this.getResults(
-      pmuDate,
-      reunionNum,
-      courseNum
+  ): Promise<Bet["horseNums"]> {
+    const participantsResponse = await fetch(
+      URLS.PMU.PARTICIPANTS(pmuDate, reunionNum, courseNum)
     );
-    console.log("results", results);
-    const lenght = results.length;
+    const data = await participantsResponse.json();
+    const horseNums = data.participants.map((participant: any) => {
+      if (participant.statut === "PARTANT") return participant.numPmu;
+    });
+    const lenght = horseNums.length;
     const random = Math.floor(Math.random() * lenght);
-    const choice = results[random];
-    return choice;
+    const choice = horseNums[random];
+    return [choice];
   }
 
   async getCourses(pmuDate: string) {

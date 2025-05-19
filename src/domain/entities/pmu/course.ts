@@ -27,7 +27,7 @@ export interface Course extends CourseBase {
   commentaireApresCourse: CommentaireSource;
 }
 
-interface CourseBase {
+export interface CourseBase {
   cached: boolean;
   departImminent: boolean;
   arriveeDefinitive: boolean;

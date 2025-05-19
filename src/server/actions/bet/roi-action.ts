@@ -1,0 +1,20 @@
+"use server";
+
+import { getProfitAction } from "./get-profit-action";
+import { BetService } from "@/server/services/internal/bet-service";
+import { BetStrategy } from "@prisma/client";
+
+export const getROIAction = async ({ strategy }: { strategy: BetStrategy }) => {
+  const betService = new BetService();
+  const bets = await betService.findAll({
+    where: {
+      strategy,
+    },
+  });
+  const amountSpend = bets.reduce((acc, bet) => acc + (bet.amount ?? 0), 0);
+  const profit = await getProfitAction({ strategy });
+  const roi = (profit / amountSpend) * 100;
+  const roiToDisplay = roi.toFixed(2).replace(".", ",");
+  console.log(roiToDisplay);
+  return roiToDisplay;
+};

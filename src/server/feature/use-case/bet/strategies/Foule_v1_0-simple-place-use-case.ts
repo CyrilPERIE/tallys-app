@@ -37,9 +37,7 @@ export const Foule_v1_0SimplePlaceUseCase = async (
     false
   )) as string;
   const rapportsDefinitifs = (await pmuService.getRapportsDefinitifs(
-    pmuDate,
-    reunionNum,
-    courseNum,
+    courseIdentifiers,
     false
   )) as string;
   const prompt = PROMPT_FOULE_V1_0(
