@@ -26,7 +26,7 @@ export default function Stats({ className }: { className?: string }) {
             <StatsMostProfitableRaceCard className="flex-1" />
             <StatsBestMonthCard className="flex-1" />
           </Row>
-          <Row className="flex-1">
+          <Row className="">
             <StatsCumulativeProfit className="bg-blue-500 flex-1" />
           </Row>
         </Column>
