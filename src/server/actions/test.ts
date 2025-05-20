@@ -1,11 +1,9 @@
 "use server";
 
 import { CourseIdentifiers } from "@/domain/entities/utils";
-import { Foule_v1_0SimplePlaceUseCase } from "@/server/feature/use-case/bet/strategies/Foule_v1_0-simple-place-use-case";
-import { RandomSimplePlaceUseCase } from "@/server/feature/use-case/bet/strategies/Random-simple-place-use-case";
 import { PmuAPIService } from "@/server/services/external/pmu-api-service";
-import { FavorisUseCase } from "../feature/use-case/bet/strategies/favoris-use-case";
-import { RapportsDefinitifsResponse } from "@/domain/entities/pmu/rapport";
+import { BetType } from "@prisma/client";
+import { betByCourseUseCase } from "../feature/use-case/bet/bet-by-course-use-case";
 
 const dateToPmuDate = (date: Date) => {
   const day = date.getDate().toString().padStart(2, "0");
@@ -37,9 +35,8 @@ export const testAction = async () => {
           reunionNum: reunion,
           courseNum: course,
         };
-        // await Foule_v1_0SimplePlaceUseCase(courseIdentifiers);
-        // await RandomSimplePlaceUseCase(courseIdentifiers);
-        await FavorisUseCase(courseIdentifiers);
+        await betByCourseUseCase(courseIdentifiers, "random");
+        await betByCourseUseCase(courseIdentifiers, "Foule_v1_0");
       }
     }
   }

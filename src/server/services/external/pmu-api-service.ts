@@ -82,14 +82,19 @@ export class PmuAPIService {
   }
 
   async getParticipants(courseIdentifiers: CourseIdentifiers) {
-    const participantsResponse = await fetch(URLS.PMU.PARTICIPANTS(courseIdentifiers));
+    const participantsResponse = await fetch(
+      URLS.PMU.PARTICIPANTS(courseIdentifiers)
+    );
     const participantsJson = await participantsResponse.json();
     return participantsJson.participants;
   }
 
-  async getRandomParticipantFromCourse(courseIdentifiers: CourseIdentifiers, count: number = 1) {
+  async getRandomParticipantFromCourse(
+    courseIdentifiers: CourseIdentifiers,
+    count: number = 1
+  ): Promise<number[]> {
     const participants = await this.getParticipants(courseIdentifiers);
-    if (!participants) return;
+    if (!participants) [];
     const horseNums = participants.map((participant: any) => {
       return participant.numPmu;
     });
@@ -106,7 +111,6 @@ export class PmuAPIService {
   }
 
   async getCourse(courseIdentifiers: CourseIdentifiers) {
-    console.log("URL", URLS.PMU.COURSE(courseIdentifiers));
     const data = await fetch(URLS.PMU.COURSE(courseIdentifiers));
     if (data.status !== 200) return;
     const course = (await data.json()) as CourseBase;
@@ -126,10 +130,11 @@ export class PmuAPIService {
     return courses;
   }
 
-  async getAvailableBetTypes(courseIdentifiers: CourseIdentifiers) {
+  async getAvailableBetTypes(
+    courseIdentifiers: CourseIdentifiers
+  ): Promise<BetType[]> {
     const course = await this.getCourse(courseIdentifiers);
     if (!course) return [];
-    console.log(course);
     const betTypes = course.paris.map((pari) => pari.typePari);
     return betTypes;
   }
@@ -141,5 +146,16 @@ export class PmuAPIService {
       programmes[pmuDate] = courses;
     }
     return programmes;
+  }
+
+  async betOnline(
+    courseIdentifiers: CourseIdentifiers,
+    betType: BetType,
+    horseNums: number[],
+    amount: number
+  ) {
+    const message = () =>
+      `R${courseIdentifiers.reunionNum}C${courseIdentifiers.courseNum} ${betType} ${horseNums.join("-")} ${amount}€`;
+    console.log(message());
   }
 }

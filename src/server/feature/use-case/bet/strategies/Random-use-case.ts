@@ -5,16 +5,14 @@ import { CourseIdentifiers } from "@/domain/entities/utils";
 import { BetStrategy } from "@prisma/client";
 import { z } from "zod";
 
-const RandomSimplePlaceSchema = z.array(z.number());
-
-export const RandomSimplePlaceUseCase = async (
+export const RandomUseCase = async (
   courseIdentifiers: CourseIdentifiers
 ) => {
   const pmuService = new PmuAPIService();
   const horse = await pmuService.getRandomParticipantFromCourse(
     courseIdentifiers
   );
-  if (!RandomSimplePlaceSchema.safeParse(horse).success) return null;
+  if (horse.length === 0) return null;
   const betService = new BetService();
   const betCreated = await betService.create({
     courseId: courseIdentifiersToCourseId(courseIdentifiers),
