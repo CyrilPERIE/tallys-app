@@ -8,16 +8,15 @@ import {
 import { ProgrammeResponse } from "@/domain/entities/pmu/programme";
 import { Bet, BetType } from "@prisma/client";
 import { CourseIdentifiers } from "@/lib/types/pmu";
+import { CourseBase } from "@/domain/entities/pmu/course";
 
 export class PmuAPIService {
   async getPronostics(
-    pmuDate: string,
-    reunionNum: string,
-    courseNum: string,
+    courseIdentifiers: CourseIdentifiers,
     toJson: boolean = true
   ) {
     const pronosticResponse = await fetch(
-      URLS.PMU.PRONOSTIC(pmuDate, reunionNum, courseNum)
+      URLS.PMU.PRONOSTIC(courseIdentifiers)
     );
     const pronosticJson =
       (await pronosticResponse.json()) as PronosticsResponse;
@@ -27,13 +26,11 @@ export class PmuAPIService {
   }
 
   async getPronosticsDetaille(
-    pmuDate: string,
-    reunionNum: string,
-    courseNum: string,
+    courseIdentifiers: CourseIdentifiers,
     toJson: boolean = true
   ) {
     const pronosticsDetailleResponse = await fetch(
-      URLS.PMU.PRONOSTICS_DETAILLES(pmuDate, reunionNum, courseNum)
+      URLS.PMU.PRONOSTICS_DETAILLES(courseIdentifiers)
     );
     const pronosticsDetailleJson =
       (await pronosticsDetailleResponse.json()) as PronosticsDetaillesResponse;
@@ -46,9 +43,8 @@ export class PmuAPIService {
     courseIdentifiers: CourseIdentifiers,
     toJson: boolean = true
   ) {
-    const { pmuDate, reunionNum, courseNum } = courseIdentifiers;
     const rapportsDefinitifsResponse = await fetch(
-      URLS.PMU.RAPPORTS_DEFINITIFS(pmuDate, reunionNum, courseNum)
+      URLS.PMU.RAPPORTS_DEFINITIFS(courseIdentifiers)
     );
     if (rapportsDefinitifsResponse.status === 204) {
       return "Rapport definitif non disponible";
@@ -64,9 +60,8 @@ export class PmuAPIService {
     courseIdentifiers: CourseIdentifiers,
     betType: BetType = BetType.E_SIMPLE_PLACE
   ) {
-    const { pmuDate, reunionNum, courseNum } = courseIdentifiers;
     const rapportsResponse = await fetch(
-      URLS.PMU.RAPPORTS_BY_BET_TYPE(pmuDate, reunionNum, courseNum, betType)
+      URLS.PMU.RAPPORTS_BY_BET_TYPE(courseIdentifiers, betType)
     );
     if (rapportsResponse.status !== 200) return;
     const rapportsJson = (await rapportsResponse.json()) as RapportsReponse;
@@ -80,22 +75,15 @@ export class PmuAPIService {
   }
 
   async getResults(courseIdentifiers: CourseIdentifiers) {
-    const { pmuDate, reunionNum, courseNum } = courseIdentifiers;
-    const resultsResponse = await fetch(
-      URLS.PMU.COURSE(pmuDate, reunionNum, courseNum)
-    );
+    const resultsResponse = await fetch(URLS.PMU.COURSE(courseIdentifiers));
     const resultsJson = await resultsResponse.json();
     const ordreArrivee = resultsJson.ordreArrivee;
     return ordreArrivee;
   }
 
-  async getRandomParticipantFromCourse(
-    pmuDate: string,
-    reunionNum: string,
-    courseNum: string
-  ): Promise<Bet["horseNums"]> {
+  async getRandomParticipantFromCourse(courseIdentifiers: CourseIdentifiers) {
     const participantsResponse = await fetch(
-      URLS.PMU.PARTICIPANTS(pmuDate, reunionNum, courseNum)
+      URLS.PMU.PARTICIPANTS(courseIdentifiers)
     );
     const data = await participantsResponse.json();
     const horseNums = data.participants.map((participant: any) => {
@@ -107,17 +95,34 @@ export class PmuAPIService {
     return [choice];
   }
 
+  async getCourse(courseIdentifiers: CourseIdentifiers) {
+    const data = await fetch(
+      URLS.PMU.COURSE(courseIdentifiers)
+    );
+    if (data.status !== 200) return;
+    const course = await data.json() as CourseBase;
+    return course;
+  }
+
   async getCourses(pmuDate: string) {
     const programme = (await this.getProgramme(pmuDate)) as ProgrammeResponse;
     const courses: Record<string, string[]> = {};
 
-    programme.programme.reunions.forEach((reunion: any) => {
+    programme.programme.reunions.forEach((reunion) => {
       courses[reunion.numOfficiel] = [];
-      reunion.courses.forEach((course: any) => {
-        courses[reunion.numOfficiel].push(course.numExterne);
+      reunion.courses.forEach((course) => {
+        courses[reunion.numOfficiel].push(""+course.numExterne);
       });
     });
     return courses;
+  }
+
+  async getAvailableBetTypes(courseIdentifiers: CourseIdentifiers) {
+    const course = await this.getCourse(courseIdentifiers);
+    if (!course) return [];
+    console.log(course);  
+    const betTypes = course.paris.map((pari) => pari.typePari);
+    return betTypes;
   }
 
   async getCoursesByPmuDates(pmuDates: string[]) {

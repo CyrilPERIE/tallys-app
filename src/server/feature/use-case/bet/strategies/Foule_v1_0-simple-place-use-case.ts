@@ -25,15 +25,15 @@ export const Foule_v1_0SimplePlaceUseCase = async (
   const { pmuDate, reunionNum, courseNum } = courseIdentifiers;
 
   const pronostics = (await pmuService.getPronostics(
-    pmuDate,
+    {pmuDate,
     reunionNum,
-    courseNum,
+    courseNum},
     false
   )) as string;
   const pronosticsDetaille = (await pmuService.getPronosticsDetaille(
-    pmuDate,
+    {pmuDate,
     reunionNum,
-    courseNum,
+    courseNum},
     false
   )) as string;
   const rapportsDefinitifs = (await pmuService.getRapportsDefinitifs(

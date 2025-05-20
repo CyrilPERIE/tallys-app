@@ -1,5 +1,5 @@
 import { TauxContribution } from "@/domain/entities/pmu/common";
-
+import { BetType } from "@prisma/client";
 export interface Cagnotte {
   numCourse: number;
   typePari: string;
@@ -10,7 +10,7 @@ export interface Cagnotte {
 
 export interface Paris {
   poolId?: string;
-  typePari: string;
+  typePari: keyof typeof BetType;
   miseBase: number;
   miseMax?: number;
   enVente: boolean;

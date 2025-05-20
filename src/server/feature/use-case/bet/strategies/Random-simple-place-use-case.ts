@@ -10,12 +10,9 @@ const RandomSimplePlaceSchema = z.array(z.number());
 export const RandomSimplePlaceUseCase = async (
   courseIdentifiers: CourseIdentifiers
 ) => {
-  const { pmuDate, reunionNum, courseNum } = courseIdentifiers;
   const pmuService = new PmuAPIService();
   const horse = await pmuService.getRandomParticipantFromCourse(
-    pmuDate,
-    reunionNum,
-    courseNum
+    courseIdentifiers
   );
   if (!RandomSimplePlaceSchema.safeParse(horse).success) return null;
   const betService = new BetService();
