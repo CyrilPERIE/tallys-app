@@ -9,39 +9,38 @@ import { useFiltersStore } from "@/stores/filters/provider";
 
 type Period = {
   label: PeriodLabel;
-  action: () => void;
+  period: Date;
+};
+const now = new Date();
+
+export const getPeriod = (label: PeriodLabel) => {
+  const period = periods.find((p) => p.label === label);
+  if (period) {
+    return period.period;
+  }
+  return new Date("1900-01-01");
 };
 
 const periods: Period[] = [
   {
     label: "3M",
-    action: () => {
-      console.log("3M");
-    },
+    period: new Date(now.getFullYear(), now.getMonth() - 3, now.getDate(), 0, 0, 0, 0),
   },
   {
     label: "6M",
-    action: () => {
-      console.log("6M");
-    },
+    period: new Date(now.getFullYear(), now.getMonth() - 6, now.getDate(), 0, 0, 0, 0),
   },
   {
     label: "YTD",
-    action: () => {
-      console.log("YTD");
-    },
+    period: new Date(now.getFullYear(), 0, 1, 0, 0, 0, 0),
   },
   {
     label: "1Y",
-    action: () => {
-      console.log("1Y");
-    },
+    period: new Date(now.getFullYear() - 1, now.getMonth(), now.getDate(), 0, 0, 0, 0),
   },
   {
     label: "MAX",
-    action: () => {
-      console.log("MAX");
-    },
+    period: new Date("1900-01-01"),
   },
 ];
 
@@ -52,7 +51,6 @@ export const StatsPeriodFilter = ({ className }: { className?: string }) => {
   const handlePeriodClick = (label: PeriodLabel) => {
     const period = periods.find((p) => p.label === label);
     if (period) {
-      period.action();
       updatePeriodFilter(label);
     }
   };

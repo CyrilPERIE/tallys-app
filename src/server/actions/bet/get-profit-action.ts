@@ -4,7 +4,7 @@ import { BetService } from "@/server/services/internal/bet-service";
 import { BetStrategy, BetType } from "@prisma/client";
 
 //TODO: add time period filter
-export const getProfitAction = async ({ strategy, betType, period }: { strategy?: BetStrategy, betType?: BetType[], period?: string }) => {
+export const getProfitAction = async ({ strategy, betType, period }: { strategy: BetStrategy, betType: BetType[], period: Date }) => {
     const betService = new BetService();
     const profit = await betService.aggregate({
         where: {
@@ -13,7 +13,7 @@ export const getProfitAction = async ({ strategy, betType, period }: { strategy?
                 in: betType,
             },
             updatedAt: {
-                gte: period ? new Date(period) : undefined,
+                gte: period,
             },
         },
         _sum: {

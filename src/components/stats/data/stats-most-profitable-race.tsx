@@ -6,26 +6,22 @@ import { useEffect, useState } from "react";
 import { courseIdToDisplay, amountToDisplay } from "@/lib/utils/label";
 import { getMostProfitableRaceAction } from "@/server/actions/bet/get-most-profitable-race-action";
 import { useFiltersStore } from "@/stores/filters/provider";
-
-type MostProfitableRaceProps = {
-  courseId: string;
-  profit: number;
-};
+import { getPeriod } from "@/components/stats/filters/stats-periods-filter";
 
 export const StatsMostProfitableRace = () => {
-  const strategyFilter = useFiltersStore((state) => state.strategyFilter);
+  const { strategyFilter, betTypeFilter, periodFilter } = useFiltersStore((state) => state);
 
   const [profitToDisplay, setProfitToDisplay] = useState<string | null>(null);
   const [course, setCourse] = useState<CourseIdentifiers | null>(null);
 
   useEffect(() => {
-    getMostProfitableRaceAction({ strategy: strategyFilter }).then(
+    getMostProfitableRaceAction({ strategy: strategyFilter, betType: betTypeFilter, period: getPeriod(periodFilter) }).then(
       (mostProfitableRace) => {
         setCourse(courseIdToDisplay(mostProfitableRace.courseId));
         setProfitToDisplay(amountToDisplay(mostProfitableRace.profit));
       }
     );
-  }, [strategyFilter]);
+  }, [strategyFilter, betTypeFilter, periodFilter]);
 
   if (!course) return null;
   return (

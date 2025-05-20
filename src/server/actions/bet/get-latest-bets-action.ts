@@ -3,7 +3,7 @@
 import { BetService } from "@/server/services/internal/bet-service";
 import { BetStrategy, BetType } from "@prisma/client";
 
-export const getLatestBetsAction = async ({ strategy, betType, period }: { strategy?: BetStrategy, betType?: BetType[], period?: string }) => {
+export const getLatestBetsAction = async ({ strategy, betType, period }: { strategy?: BetStrategy, betType: BetType[], period: Date }) => {
     const betService = new BetService();
     const bets = await betService.findAll({
         where: {
@@ -12,7 +12,7 @@ export const getLatestBetsAction = async ({ strategy, betType, period }: { strat
                 in: betType,
             },
             updatedAt: {
-                gte: period ? new Date(period) : undefined,
+                gte: period,
             },
         },
         orderBy: {

@@ -14,17 +14,18 @@ import { useFiltersStore } from "@/stores/filters/provider";
 import { useEffect, useState } from "react";
 import { getLatestBetsAction } from "@/server/actions/bet/get-latest-bets-action";
 import { Bet } from "@prisma/client";
+import { getPeriod } from "@/components/stats/filters/stats-periods-filter";
 
 const BetTableHeadLabel = ["Date", "Montant parié", "Course", "Cheval", "Profit"];
 
 export const BetTable = ({ className }: { className?: string }) => {
-  const {strategyFilter} = useFiltersStore(state => state);
+  const { strategyFilter, betTypeFilter, periodFilter } = useFiltersStore(state => state);
   const [bets, setBets] = useState<Bet[]>([]);
 
   //TODO: add loading state + voir pour ne pas faire de useEffect
   useEffect(() => {
-    getLatestBetsAction({strategy: strategyFilter}).then(setBets);
-  }, [strategyFilter]);
+    getLatestBetsAction({ strategy: strategyFilter, betType: betTypeFilter, period: getPeriod(periodFilter) }).then(setBets);
+  }, [strategyFilter, betTypeFilter, periodFilter]);
   return (
     <div className={cn("", className)}>
       <Table>

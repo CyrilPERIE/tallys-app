@@ -6,21 +6,22 @@ import { getHiggestOddsWinAction } from "@/server/actions/bet/get-higgest-odds-w
 import { useState, useEffect } from "react";
 import { useFiltersStore } from "@/stores/filters/provider";
 import { CourseIdentifiers } from "@/domain/entities/utils";
+import { getPeriod } from "@/components/stats/filters/stats-periods-filter";
 
 export const StatsHiggestOddsWin = () => {
-  const strategyFilter = useFiltersStore((state) => state.strategyFilter);
+  const { strategyFilter, betTypeFilter, periodFilter } = useFiltersStore((state) => state);
 
   const [oddsToDisplay, setOddsToDisplay] = useState<string | null>(null);
   const [course, setCourse] = useState<CourseIdentifiers | null>(null);
 
   useEffect(() => {
-    getHiggestOddsWinAction({ strategy: strategyFilter }).then(
+    getHiggestOddsWinAction({ strategy: strategyFilter, betType: betTypeFilter, period: getPeriod(periodFilter) }).then(
       (highestOddsWin) => {
         setCourse(courseIdToDisplay(highestOddsWin.courseId));
         setOddsToDisplay(highestOddsWin.odds.toFixed(2));
       }
     );
-  }, [strategyFilter]);
+  }, [strategyFilter, betTypeFilter, periodFilter]);
 
   if (!course) return null;
 

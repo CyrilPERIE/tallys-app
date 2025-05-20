@@ -3,7 +3,7 @@
 import { BetService } from "@/server/services/internal/bet-service";
 import { BetStrategy, BetType } from "@prisma/client";
 
-export const getMostProfitableRaceAction = async ({ strategy, betType, period }: { strategy?: BetStrategy, betType?: BetType[], period?: string }) => {
+export const getMostProfitableRaceAction = async ({ strategy, betType, period }: { strategy: BetStrategy, betType: BetType[], period: Date }) => {
   const betService = new BetService();
   const mostProfitableRace = await betService.aggregate({
     where: {
@@ -12,7 +12,7 @@ export const getMostProfitableRaceAction = async ({ strategy, betType, period }:
         in: betType,
       },
       updatedAt: {
-        gte: period ? new Date(period) : undefined,
+        gte: period,
       },
     },
     _max: {
