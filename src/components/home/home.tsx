@@ -10,10 +10,16 @@ import { testAction } from "@/server/actions/test";
 import { setProfit } from "@/server/actions/setProfit";
 import { MultiSelect } from "../ui/multi-select";
 import { BetType } from "@prisma/client";
+import { RandomUseCase } from "@/server/feature/use-case/bet/strategies/Random-use-case";
 export default function Home({ className }: { className?: string }) {
   const handleClick = async () => {
-      await testAction();
-      // await setProfit();
+    // await testAction();
+    // await setProfit();
+    await RandomUseCase({
+      pmuDate: "01012025",
+      reunionNum: "1",
+      courseNum: "1",
+    });
   };
   return (
     <Row className={cn("items-center justify-center gap-4", className)}>

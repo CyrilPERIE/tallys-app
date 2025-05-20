@@ -8,6 +8,8 @@ import { z } from "zod";
 import { BetService } from "@/server/services/internal/bet-service";
 import { courseIdentifiersToCourseId } from "@/lib/utils/pmu";
 import { BetStrategy } from "@prisma/client";
+import { Bet } from "@prisma/client";
+
 const Foule_v1_0SimplePlaceSchema = z.object({
   result: z.array(z.number()),
 });
@@ -16,7 +18,7 @@ type Foule_v1_0SimplePlaceSchema = z.infer<typeof Foule_v1_0SimplePlaceSchema>;
 
 export const Foule_v1_0SimplePlaceUseCase = async (
   courseIdentifiers: CourseIdentifiers
-) => {
+): Promise<Bet | null> => {
   const pmuService = new PmuAPIService();
   const openaiService = new OpenaiService();
   const betService = new BetService();
@@ -41,8 +43,11 @@ export const Foule_v1_0SimplePlaceUseCase = async (
     pronosticsDetaille,
     rapportsDefinitifs
   );
-  const completion: Foule_v1_0SimplePlaceSchema =
-    await openaiService.generateCompletion(prompt, Foule_v1_0SimplePlaceSchema);
+  const completion = await openaiService.generateCompletion(
+    prompt,
+    Foule_v1_0SimplePlaceSchema
+  );
+  if (!completion) return null;
   const betCreated = await betService.create({
     courseId,
     horseNums: completion.result,

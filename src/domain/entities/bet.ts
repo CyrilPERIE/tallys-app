@@ -21,12 +21,30 @@ const BetSpecifications: BetsSpecificationsMap = {
   [BetType.E_SIMPLE_PLACE]: {
     isAlwaysAvailable: true,
   },
+  [BetType.SIMPLE_PLACE_INTERNATIONAL]: {
+    isAlwaysAvailable: true,
+  },
   [BetType.E_SIMPLE_GAGNANT]: {
+    isAlwaysAvailable: true,
+  },
+  [BetType.SIMPLE_GAGNANT_INTERNATIONAL]: {
     isAlwaysAvailable: true,
   },
   [BetType.E_DEUX_SUR_QUATRE]: {
     countHorseNumber: 2,
     baseBetAmount: 3,
+  },
+  [BetType.E_COUPLE_PLACE]: {
+    countHorseNumber: 2,
+    baseBetAmount: 1,
+  },
+  [BetType.E_COUPLE_GAGNANT]: {
+    countHorseNumber: 2,
+    baseBetAmount: 1,
+  },
+  [BetType.E_COUPLE_ORDRE]: {
+    countHorseNumber: 2,
+    baseBetAmount: 1,
   },
   [BetType.E_TRIO]: {
     baseBetAmount: 1,

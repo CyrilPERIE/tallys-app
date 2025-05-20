@@ -10,7 +10,7 @@ export class OpenaiService {
     content: string,
     schema: z.ZodSchema,
     maxAttempts: number = 3
-  ): Promise<z.infer<typeof schema>> {
+  ): Promise<z.infer<typeof schema> | null> {
     let attempts = 0;
     while (attempts < maxAttempts) {
       const completion = await openai.chat.completions.create({
@@ -26,7 +26,7 @@ export class OpenaiService {
       }
       attempts++;
     }
-    return {};
+    return null;
   }
 
   stringToJson(str: string | null) {

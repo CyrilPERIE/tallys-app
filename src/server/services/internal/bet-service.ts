@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma/prisma";
 import { Prisma } from "@prisma/client";
 import { DefaultArgs } from "@prisma/client/runtime/library";
 
-type createProps = Pick<Bet, "amount" | "courseId" | "horseNums" | "strategy">;
+type createProps = Pick<Bet, "amount" | "courseId" | "horseNums" | "strategy" | "betType">;
 type findAllWhereProps = {where?: Prisma.BetWhereInput};
 type findAllOrderByProps = {orderBy?: Prisma.BetOrderByWithRelationInput};
 type findAllTakeProps = {take?: number};

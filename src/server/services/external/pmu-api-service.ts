@@ -139,6 +139,13 @@ export class PmuAPIService {
     return betTypes;
   }
 
+  async isBetAvailable(courseIdentifiers: CourseIdentifiers, betType: BetType) {
+    const course = await this.getCourse(courseIdentifiers);
+    if (!course) return false;
+    const betTypes = course.paris.map((pari) => pari.typePari);
+    return betTypes.includes(betType);
+  }
+
   async getCoursesByPmuDates(pmuDates: string[]) {
     const programmes: Record<string, Record<string, string[]>> = {};
     for (const pmuDate of pmuDates) {
