@@ -1,4 +1,4 @@
-import { CourseIdentifiers } from "@/lib/types/pmu";
+import { CourseIdentifiers } from "@/domain/entities/utils";
 import { BetStrategy, BetType } from "@prisma/client";
 import {
   courseIdentifiersToCourseId,

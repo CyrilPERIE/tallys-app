@@ -1,5 +1,5 @@
 import { _MONTH_MAP } from "@/lib/constants/constants";
-import { CourseIdentifiers } from "@/lib/types/pmu";
+import { CourseIdentifiers } from "@/domain/entities/utils";
 export const dateToDisplay = (date: Date) => {
   const day = date.getDate();
   const month = date.getMonth() + 1;
@@ -21,7 +21,7 @@ export const amountToDisplay = (amount: number, currency: string = "€") => {
   );
 };
 
-export const courseIdToDisplay = (courseId: string) : CourseIdentifiers => {
+export const courseIdToDisplay = (courseId: string): CourseIdentifiers => {
   const date = courseId.slice(0, 8);
   const race = courseId.slice(8, 10);
   const course = courseId.slice(10, 12);

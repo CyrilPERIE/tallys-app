@@ -1,5 +1,5 @@
 import { Bet, BetType } from "@prisma/client";
-import { CourseIdentifiers } from "@/lib/types/pmu";
+import { CourseIdentifiers } from "@/domain/entities/utils";
 import { RapportsReponse } from "@/domain/entities/pmu/rapport";
 
 export const courseIdentifiersToCourseId = (
@@ -45,7 +45,9 @@ export const getFavoriteCombination = (rapport: RapportsReponse) => {
   if (favorisHorse) return favorisHorse.numerosParticipant ?? [];
 
   const bestRapportHorse = rapportsParticipant
-    .filter((p) => p.rapportDirect !== undefined && p.numerosParticipant !== undefined)
+    .filter(
+      (p) => p.rapportDirect !== undefined && p.numerosParticipant !== undefined
+    )
     .reduce((prev, curr) =>
       curr.rapportDirect! > prev.rapportDirect! ? curr : prev
     );

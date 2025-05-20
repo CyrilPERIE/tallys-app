@@ -1,6 +1,6 @@
 "use server";
 
-import { CourseIdentifiers } from "@/lib/types/pmu";
+import { CourseIdentifiers } from "@/domain/entities/utils";
 import { PmuAPIService } from "@/server/services/external/pmu-api-service";
 import { OpenaiService } from "@/server/services/external/openai-service";
 import { PROMPT_FOULE_V1_0 } from "@/lib/constants/prompts";
@@ -25,15 +25,11 @@ export const Foule_v1_0SimplePlaceUseCase = async (
   const { pmuDate, reunionNum, courseNum } = courseIdentifiers;
 
   const pronostics = (await pmuService.getPronostics(
-    {pmuDate,
-    reunionNum,
-    courseNum},
+    { pmuDate, reunionNum, courseNum },
     false
   )) as string;
   const pronosticsDetaille = (await pmuService.getPronosticsDetaille(
-    {pmuDate,
-    reunionNum,
-    courseNum},
+    { pmuDate, reunionNum, courseNum },
     false
   )) as string;
   const rapportsDefinitifs = (await pmuService.getRapportsDefinitifs(
@@ -45,7 +41,8 @@ export const Foule_v1_0SimplePlaceUseCase = async (
     pronosticsDetaille,
     rapportsDefinitifs
   );
-  const completion: Foule_v1_0SimplePlaceSchema = await openaiService.generateCompletion(prompt, Foule_v1_0SimplePlaceSchema);
+  const completion: Foule_v1_0SimplePlaceSchema =
+    await openaiService.generateCompletion(prompt, Foule_v1_0SimplePlaceSchema);
   const betCreated = await betService.create({
     courseId,
     horseNums: completion.result,

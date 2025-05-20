@@ -7,7 +7,7 @@ import {
 } from "@/domain/entities/pmu/rapport";
 import { ProgrammeResponse } from "@/domain/entities/pmu/programme";
 import { Bet, BetType } from "@prisma/client";
-import { CourseIdentifiers } from "@/lib/types/pmu";
+import { CourseIdentifiers } from "@/domain/entities/utils";
 import { CourseBase } from "@/domain/entities/pmu/course";
 
 export class PmuAPIService {
@@ -96,11 +96,9 @@ export class PmuAPIService {
   }
 
   async getCourse(courseIdentifiers: CourseIdentifiers) {
-    const data = await fetch(
-      URLS.PMU.COURSE(courseIdentifiers)
-    );
+    const data = await fetch(URLS.PMU.COURSE(courseIdentifiers));
     if (data.status !== 200) return;
-    const course = await data.json() as CourseBase;
+    const course = (await data.json()) as CourseBase;
     return course;
   }
 
@@ -111,7 +109,7 @@ export class PmuAPIService {
     programme.programme.reunions.forEach((reunion) => {
       courses[reunion.numOfficiel] = [];
       reunion.courses.forEach((course) => {
-        courses[reunion.numOfficiel].push(""+course.numExterne);
+        courses[reunion.numOfficiel].push("" + course.numExterne);
       });
     });
     return courses;
@@ -120,7 +118,7 @@ export class PmuAPIService {
   async getAvailableBetTypes(courseIdentifiers: CourseIdentifiers) {
     const course = await this.getCourse(courseIdentifiers);
     if (!course) return [];
-    console.log(course);  
+    console.log(course);
     const betTypes = course.paris.map((pari) => pari.typePari);
     return betTypes;
   }

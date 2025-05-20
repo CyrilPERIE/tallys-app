@@ -1,5 +1,5 @@
 import { PmuAPIService } from "@/server/services/external/pmu-api-service";
-import { CourseIdentifiers } from "@/lib/types/pmu";
+import { CourseIdentifiers } from "@/domain/entities/utils";
 import { BetStatus } from "@prisma/client";
 
 type BetGain = {

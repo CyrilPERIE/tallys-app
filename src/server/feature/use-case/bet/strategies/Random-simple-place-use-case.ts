@@ -1,7 +1,7 @@
 import { BetService } from "@/server/services/internal/bet-service";
 import { PmuAPIService } from "@/server/services/external/pmu-api-service";
 import { courseIdentifiersToCourseId } from "@/lib/utils/pmu";
-import { CourseIdentifiers } from "@/lib/types/pmu";
+import { CourseIdentifiers } from "@/domain/entities/utils";
 import { BetStrategy } from "@prisma/client";
 import { z } from "zod";
 

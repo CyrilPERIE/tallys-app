@@ -1,7 +1,7 @@
 "use client";
 
 import { Column } from "@/components/ui/layout";
-import { CourseIdentifiers } from "@/lib/types/pmu";
+import { CourseIdentifiers } from "@/domain/entities/utils";
 import { useEffect, useState } from "react";
 import { courseIdToDisplay, amountToDisplay } from "@/lib/utils/label";
 import { getMostProfitableRaceAction } from "@/server/actions/bet/get-most-profitable-race-action";

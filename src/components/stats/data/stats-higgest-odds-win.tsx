@@ -5,8 +5,7 @@ import { courseIdToDisplay, datePmuToDisplay } from "@/lib/utils/label";
 import { getHiggestOddsWinAction } from "@/server/actions/bet/get-higgest-odds-win-action";
 import { useState, useEffect } from "react";
 import { useFiltersStore } from "@/stores/filters/provider";
-import { CourseIdentifiers } from "@/lib/types/pmu";
-
+import { CourseIdentifiers } from "@/domain/entities/utils";
 
 export const StatsHiggestOddsWin = () => {
   const strategyFilter = useFiltersStore((state) => state.strategyFilter);
@@ -15,10 +14,12 @@ export const StatsHiggestOddsWin = () => {
   const [course, setCourse] = useState<CourseIdentifiers | null>(null);
 
   useEffect(() => {
-    getHiggestOddsWinAction({ strategy: strategyFilter }).then((highestOddsWin) => {
-      setCourse(courseIdToDisplay(highestOddsWin.courseId));
-      setOddsToDisplay(highestOddsWin.odds.toFixed(2));
-    });
+    getHiggestOddsWinAction({ strategy: strategyFilter }).then(
+      (highestOddsWin) => {
+        setCourse(courseIdToDisplay(highestOddsWin.courseId));
+        setOddsToDisplay(highestOddsWin.odds.toFixed(2));
+      }
+    );
   }, [strategyFilter]);
 
   if (!course) return null;

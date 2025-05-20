@@ -1,5 +1,5 @@
 import { BetType } from "@prisma/client";
-import { CourseIdentifiers } from "@/lib/types/pmu";
+import { CourseIdentifiers } from "@/domain/entities/utils";
 const BASE_PMU_URL = "https://online.turfinfo.api.pmu.fr/rest/client/61";
 
 export const URLS = {
@@ -10,7 +10,10 @@ export const URLS = {
       `${BASE_PMU_URL}/programme/${courseIdentifiers.pmuDate}/R${courseIdentifiers.reunionNum}/C${courseIdentifiers.courseNum}/pronostics?commentaire=true`,
     PRONOSTICS_DETAILLES: (courseIdentifiers: CourseIdentifiers) =>
       `${BASE_PMU_URL}/programme/${courseIdentifiers.pmuDate}/R${courseIdentifiers.reunionNum}/C${courseIdentifiers.courseNum}/pronostics-detailles`,
-    RAPPORTS_BY_BET_TYPE: (courseIdentifiers: CourseIdentifiers, betType: BetType) =>
+    RAPPORTS_BY_BET_TYPE: (
+      courseIdentifiers: CourseIdentifiers,
+      betType: BetType
+    ) =>
       `${BASE_PMU_URL}/programme/${courseIdentifiers.pmuDate}/R${courseIdentifiers.reunionNum}/C${courseIdentifiers.courseNum}/rapports/${betType}`,
     RAPPORTS_DEFINITIFS: (courseIdentifiers: CourseIdentifiers) =>
       `${BASE_PMU_URL}/programme/${courseIdentifiers.pmuDate}/R${courseIdentifiers.reunionNum}/C${courseIdentifiers.courseNum}/rapports-definitifs?specialisation=INTERNET&combinaisonEnTableau=true`,
