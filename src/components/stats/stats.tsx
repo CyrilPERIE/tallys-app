@@ -15,7 +15,7 @@ export default function Stats({ className }: { className?: string }) {
   return (
     <Column className={cn("", className)}>
       <Row className="mb-4">
-        <StatsFilters />
+        <StatsFilters className="w-full"/>
       </Row>
       <Row className="pb-4 flex-1">
         <Column className="flex-1">

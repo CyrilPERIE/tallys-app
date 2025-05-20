@@ -1,15 +1,21 @@
 "use server";
 
 import { BetService } from "@/server/services/internal/bet-service";
-import { BetStrategy } from "@prisma/client";
+import { BetStrategy, BetType } from "@prisma/client";
 import { courseIdToCourseIdentifiers, extractItemsFromPmuDate } from "@/lib/utils/pmu";
 import { getMonthLabel } from "@/lib/utils/label";
 
-export const getMostProfitableMonthAction = async ({ strategy }: { strategy: BetStrategy }) => {
+export const getMostProfitableMonthAction = async ({ strategy, betType, period }: { strategy?: BetStrategy, betType?: BetType[], period?: string }) => {
     const betService = new BetService();
     const bets = await betService.findAll({
         where: {
             strategy,
+            betType: {
+                in: betType,
+            },
+            updatedAt: {
+                gte: period ? new Date(period) : undefined,
+            },
         },
     });
 

@@ -1,13 +1,19 @@
 "use server";
 
 import { BetService } from "@/server/services/internal/bet-service";
-import { BetStrategy } from "@prisma/client";
+import { BetStrategy, BetType } from "@prisma/client";
 
-export const getLatestBetsAction = async (strategy: BetStrategy) => {
+export const getLatestBetsAction = async ({ strategy, betType, period }: { strategy?: BetStrategy, betType?: BetType[], period?: string }) => {
     const betService = new BetService();
     const bets = await betService.findAll({
         where: {
-            strategy: strategy
+            strategy,
+            betType: {
+                in: betType,
+            },
+            updatedAt: {
+                gte: period ? new Date(period) : undefined,
+            },
         },
         orderBy: {
             updatedAt: "desc"

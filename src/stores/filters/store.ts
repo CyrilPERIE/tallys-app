@@ -1,15 +1,17 @@
 import { createStore } from "zustand";
-import { BetStrategy } from "@prisma/client";
+import { BetStrategy, BetType } from "@prisma/client";
 export type PeriodLabel = "1M" | "3M" | "6M" | "YTD" | "1Y" | "MAX";
 
 interface FiltersState {
   periodFilter: PeriodLabel;
   strategyFilter: BetStrategy;
+  betTypeFilter: BetType[];
 }
 
 export type FiltersActions = {
   updatePeriodFilter: (_period: PeriodLabel) => void;
   updateStrategyFilter: (_strategy: BetStrategy) => void;
+  updateBetTypeFilter: (_betType: BetType[]) => void;
 };
 
 export type FiltersStore = FiltersState & FiltersActions;
@@ -17,6 +19,7 @@ export type FiltersStore = FiltersState & FiltersActions;
 export const defaultInitState: FiltersState = {
   periodFilter: "3M",
   strategyFilter: BetStrategy.Foule_v1_0,
+  betTypeFilter: Object.values(BetType),
 };
 
 export const initFiltersStore = (): FiltersState => {
@@ -33,5 +36,7 @@ export const createFiltersStore = (
       set(() => ({ periodFilter })),
     updateStrategyFilter: (strategyFilter: BetStrategy) =>
       set(() => ({ strategyFilter })),
+    updateBetTypeFilter: (betTypeFilter: BetType[]) =>
+      set(() => ({ betTypeFilter })),
   }));
 };

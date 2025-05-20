@@ -23,7 +23,7 @@ export const BetTable = ({ className }: { className?: string }) => {
 
   //TODO: add loading state + voir pour ne pas faire de useEffect
   useEffect(() => {
-    getLatestBetsAction(strategyFilter).then(setBets);
+    getLatestBetsAction({strategy: strategyFilter}).then(setBets);
   }, [strategyFilter]);
   return (
     <div className={cn("", className)}>

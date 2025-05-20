@@ -33,5 +33,10 @@ export const texts = {
       title: "Meilleur mois",
       description: "Mois avec le plus de profit sur la période sélectionnée.",
     },
+    betType: {
+      filters: {
+        placeholder: "Sélectionner un type de pari",
+      },
+    },
   },
 };
