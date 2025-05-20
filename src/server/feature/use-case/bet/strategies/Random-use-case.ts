@@ -7,7 +7,8 @@ import { CourseIdentifiers } from "@/domain/entities/utils";
 import { BetStrategy, BetType } from "@prisma/client";
 import { getBetSpecification } from "@/domain/entities/bet";
 export const RandomUseCase = async (
-  courseIdentifiers: CourseIdentifiers
+  courseIdentifiers: CourseIdentifiers,
+  amount: number = 1
 ): Promise<void> => {
   const pmuService = new PmuAPIService();
   const betService = new BetService();
@@ -27,7 +28,7 @@ export const RandomUseCase = async (
     const betCreated = await betService.create({
       courseId: courseIdentifiersToCourseId(courseIdentifiers),
       horseNums: horse,
-      amount: 1,
+      amount,
       strategy: BetStrategy.Random,
       betType,
     });

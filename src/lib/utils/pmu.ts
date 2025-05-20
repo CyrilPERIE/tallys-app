@@ -36,21 +36,3 @@ export const horseNumsToCombination = (
   if (typeof horseNums === "number") return horseNums.toString();
   return horseNums.join("-");
 };
-
-export const getFavoriteCombination = (rapport: RapportsReponse) => {
-  const { rapportsParticipant } = rapport;
-  const favorisHorse = rapportsParticipant.find(
-    (p) => p.favoris && p.numPmu !== undefined
-  );
-  if (favorisHorse) return favorisHorse.numerosParticipant ?? [];
-
-  const bestRapportHorse = rapportsParticipant
-    .filter(
-      (p) => p.rapportDirect !== undefined && p.numerosParticipant !== undefined
-    )
-    .reduce((prev, curr) =>
-      curr.rapportDirect! > prev.rapportDirect! ? curr : prev
-    );
-  if (!bestRapportHorse) return [];
-  return bestRapportHorse?.numerosParticipant ?? [];
-};

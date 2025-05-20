@@ -163,6 +163,27 @@ export class PmuAPIService {
   ) {
     const message = () =>
       `R${courseIdentifiers.reunionNum}C${courseIdentifiers.courseNum} ${betType} ${horseNums.join("-")} ${amount}€`;
-    console.log(message());
+    console.info(message());
   }
+
+  async getFavoriteCombination(courseIdentifiers: CourseIdentifiers, betType: BetType = BetType.E_SIMPLE_PLACE): Promise<number[] | null> {
+    const rapports = await this.getRapports(courseIdentifiers, betType);
+    if (!rapports) return null;
+    const { rapportsParticipant } = rapports;
+    const favorisHorse = rapportsParticipant.find(
+      (p) => p.favoris && p.numPmu !== undefined
+    );
+    if (favorisHorse) return favorisHorse.numerosParticipant ?? null;
+  
+    const bestRapportHorse = rapportsParticipant
+      .filter(
+        (p) => p.rapportDirect !== undefined && p.numerosParticipant !== undefined
+      )
+      .reduce((prev, curr) =>
+        curr.rapportDirect! > prev.rapportDirect! ? curr : prev
+      );
+    if (!bestRapportHorse) return null;
+    return bestRapportHorse?.numerosParticipant ?? null;
+  };
+
 }

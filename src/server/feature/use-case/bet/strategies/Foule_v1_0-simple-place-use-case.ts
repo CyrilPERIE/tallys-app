@@ -7,7 +7,7 @@ import { PROMPT_FOULE_V1_0 } from "@/lib/constants/prompts";
 import { z } from "zod";
 import { BetService } from "@/server/services/internal/bet-service";
 import { courseIdentifiersToCourseId } from "@/lib/utils/pmu";
-import { BetStrategy } from "@prisma/client";
+import { BetStrategy, BetType } from "@prisma/client";
 import { Bet } from "@prisma/client";
 
 const Foule_v1_0SimplePlaceSchema = z.object({
@@ -53,6 +53,7 @@ export const Foule_v1_0SimplePlaceUseCase = async (
     horseNums: completion.result,
     amount: 1,
     strategy: BetStrategy.Foule_v1_0,
+    betType: BetType.E_SIMPLE_PLACE
   });
   return betCreated;
 };
