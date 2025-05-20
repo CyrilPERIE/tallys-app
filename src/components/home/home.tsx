@@ -10,7 +10,7 @@ import { testAction } from "@/server/actions/test";
 import { setProfit } from "@/server/actions/setProfit";
 export default function Home({ className }: { className?: string }) {
   const handleClick = async () => {
-      // await testAction();
+      await testAction();
       // await setProfit();
   };
   return (

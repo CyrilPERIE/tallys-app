@@ -81,21 +81,32 @@ export class PmuAPIService {
     return ordreArrivee;
   }
 
-  async getRandomParticipantFromCourse(courseIdentifiers: CourseIdentifiers) {
-    const participantsResponse = await fetch(
-      URLS.PMU.PARTICIPANTS(courseIdentifiers)
-    );
-    const data = await participantsResponse.json();
-    const horseNums = data.participants.map((participant: any) => {
-      if (participant.statut === "PARTANT") return participant.numPmu;
+  async getParticipants(courseIdentifiers: CourseIdentifiers) {
+    const participantsResponse = await fetch(URLS.PMU.PARTICIPANTS(courseIdentifiers));
+    const participantsJson = await participantsResponse.json();
+    return participantsJson.participants;
+  }
+
+  async getRandomParticipantFromCourse(courseIdentifiers: CourseIdentifiers, count: number = 1) {
+    const participants = await this.getParticipants(courseIdentifiers);
+    if (!participants) return;
+    const horseNums = participants.map((participant: any) => {
+      return participant.numPmu;
     });
-    const lenght = horseNums.length;
-    const random = Math.floor(Math.random() * lenght);
-    const choice = horseNums[random];
-    return [choice];
+    if (count > horseNums.length) return horseNums;
+    let choices = [];
+    for (let i = 0; i < count; i++) {
+      const lenght = horseNums.length;
+      const random = Math.floor(Math.random() * lenght);
+      const choice = horseNums[random];
+      choices.push(choice);
+      horseNums.splice(random, 1);
+    }
+    return choices;
   }
 
   async getCourse(courseIdentifiers: CourseIdentifiers) {
+    console.log("URL", URLS.PMU.COURSE(courseIdentifiers));
     const data = await fetch(URLS.PMU.COURSE(courseIdentifiers));
     if (data.status !== 200) return;
     const course = (await data.json()) as CourseBase;
