@@ -36,5 +36,6 @@ export const getMostProfitableMonthAction = async ({ strategy, betType, period }
         }
         return acc
     }, { key: "", profit: -Infinity })
+    mostProfitableMonth.profit = mostProfitableMonth.profit === -Infinity ? 0 : mostProfitableMonth.profit
     return mostProfitableMonth
 }
