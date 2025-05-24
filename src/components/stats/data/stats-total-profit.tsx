@@ -8,16 +8,14 @@ import { useFiltersStore } from "@/stores/filters/provider";
 import { getPeriod } from "@/components/stats/filters/stats-periods-filter";
 
 export const StatsTotalProfit = ({ className }: { className?: string }) => {
-  const [totalProfit, setTotalProfit] = useState<number | null>(null);
-  const { strategyFilter, betTypeFilter, periodFilter } = useFiltersStore((state) => state);
-  //TODO: add loading state + voir pour ne pas faire de useEffect
-  useEffect(() => {
-    getProfitAction({ strategy: strategyFilter, betType: betTypeFilter, period: getPeriod(periodFilter) }).then(setTotalProfit);
-  }, [strategyFilter, betTypeFilter, periodFilter]);
 
-  const totalProfitToDisplay = totalProfit
-    ? amountToDisplay(totalProfit)
-    : "Nan€";
+  const { data, isLoading, error } = useFiltersStore((state) => state);
+
+  //TODO: Add skeleton
+  if (!data || isLoading || error) return null;
+
+  const totalProfitToDisplay = amountToDisplay(data.profit)
+
   return (
     <div className={cn("text-2xl font-bold", className)}>
       {totalProfitToDisplay}

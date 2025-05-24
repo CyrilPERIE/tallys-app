@@ -9,19 +9,14 @@ import { useFiltersStore } from "@/stores/filters/provider";
 import { getPeriod } from "@/components/stats/filters/stats-periods-filter";
 
 export const StatsMostProfitableRace = () => {
-  const { strategyFilter, betTypeFilter, periodFilter } = useFiltersStore((state) => state);
 
-  const [profitToDisplay, setProfitToDisplay] = useState<string | null>(null);
-  const [course, setCourse] = useState<CourseIdentifiers | null>(null);
+  const { data, isLoading, error } = useFiltersStore((state) => state);
 
-  useEffect(() => {
-    getMostProfitableRaceAction({ strategy: strategyFilter, betType: betTypeFilter, period: getPeriod(periodFilter) }).then(
-      (mostProfitableRace) => {
-        setCourse(courseIdToDisplay(mostProfitableRace.courseId));
-        setProfitToDisplay(amountToDisplay(mostProfitableRace.profit));
-      }
-    );
-  }, [strategyFilter, betTypeFilter, periodFilter]);
+  //TODO: Add skeleton
+  if (!data || isLoading || error) return null;
+
+  const profitToDisplay = amountToDisplay(data.mostProfitableRace.profit)
+  const course = courseIdToDisplay(data.mostProfitableRace.courseId)
 
   if (!course) return null;
   return (

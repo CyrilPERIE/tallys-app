@@ -9,25 +9,18 @@ import { CourseIdentifiers } from "@/domain/entities/utils";
 import { getPeriod } from "@/components/stats/filters/stats-periods-filter";
 
 export const StatsHiggestOddsWin = () => {
-  const { strategyFilter, betTypeFilter, periodFilter } = useFiltersStore((state) => state);
 
-  const [oddsToDisplay, setOddsToDisplay] = useState<string | null>(null);
-  const [course, setCourse] = useState<CourseIdentifiers | null>(null);
+  const { data, isLoading, error } = useFiltersStore((state) => state);
 
-  useEffect(() => {
-    getHiggestOddsWinAction({ strategy: strategyFilter, betType: betTypeFilter, period: getPeriod(periodFilter) }).then(
-      (highestOddsWin) => {
-        setCourse(courseIdToDisplay(highestOddsWin.courseId));
-        setOddsToDisplay(highestOddsWin.odds.toFixed(2));
-      }
-    );
-  }, [strategyFilter, betTypeFilter, periodFilter]);
+  //TODO: Add skeleton
+  if (!data || isLoading || error) return null;
 
-  if (!course) return null;
+  const highestOddsWin = data.highestOddsWin.odds.toFixed(2).replace(".", ",")
+  const course = courseIdToDisplay(data.highestOddsWin.courseId)
 
   return (
     <Column className="items-center justify-center gap-2">
-      <p className="text-2xl font-bold">{oddsToDisplay}</p>
+      <p className="text-2xl font-bold">{highestOddsWin}</p>
       <div className="flex flex-col text-slate-500">
         <p>
           <span>{course.reunionNum}</span>

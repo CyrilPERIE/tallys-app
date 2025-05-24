@@ -8,6 +8,7 @@ import { Nav } from "@/components/header/nav";
 import { LogoName } from "@/components/identity/logo-name";
 import { texts } from "@/lib/constants/texts";
 import { FiltersStoreProvider } from "@/stores/filters/provider";
+import ReactQueryProvider from "@/components/react-query-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -28,7 +29,9 @@ export default function RootLayout({
           <Nav />
         </Header>
         <main className="flex-1 min-h-0 px-24 py-4 overflow-auto">
-          <FiltersStoreProvider>{children}</FiltersStoreProvider>
+          <ReactQueryProvider>
+            <FiltersStoreProvider>{children}</FiltersStoreProvider>
+          </ReactQueryProvider>
         </main>
         <Footer className="bg-white" />
       </body>

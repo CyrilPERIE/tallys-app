@@ -6,20 +6,12 @@ import { getHitRateAction } from "@/server/actions/bet/get-hit-rate-action";
 import { useFiltersStore } from "@/stores/filters/provider";
 import { getPeriod } from "@/components/stats/filters/stats-periods-filter";
 export const StatsHitRate = ({ className }: { className?: string }) => {
-  const [hitRate, setHitRate] = useState<string | null>(null);
-  const { strategyFilter, betTypeFilter, periodFilter } = useFiltersStore(
-    (state) => state
-  );
 
-  //TODO: add loading state + voir pour ne pas faire de useEffect
-  useEffect(() => {
-    getHitRateAction({
-      strategy: strategyFilter,
-      betType: betTypeFilter,
-      period: getPeriod(periodFilter),
-    }).then(setHitRate);
-  }, [strategyFilter, betTypeFilter, periodFilter]);
+  const { data, isLoading, error } = useFiltersStore((state) => state);
 
+  //TODO: Add skeleton
+  if (!data || isLoading || error) return null;
+  const hitRate = data.hitRate
   const _hitRateToDisplay = hitRate ? `${hitRate}%` : "Nan%";
 
   return (
