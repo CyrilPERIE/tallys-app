@@ -3,7 +3,7 @@
 import { BetService } from "@/server/services/internal/bet-service";
 import { BetStrategy, BetType } from "@prisma/client";
 
-export const getHiggestOddsWinAction = async ({ strategy, betType, period }: { strategy?: BetStrategy, betType: BetType[], period: Date }) => {
+export const getHiggestOddsWinAction = async ({ strategy, betType, period }: { strategy: BetStrategy, betType?: BetType[], period: Date }) => {
   const betService = new BetService();
   const highestOddsWin = await betService.aggregate({
     where: {

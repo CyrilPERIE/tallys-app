@@ -5,7 +5,7 @@ import { BetStrategy, BetType } from "@prisma/client";
 import { courseIdToCourseIdentifiers, extractItemsFromPmuDate } from "@/lib/utils/pmu";
 import { getMonthLabel } from "@/lib/utils/label";
 
-export const getMostProfitableMonthAction = async ({ strategy, betType, period }: { strategy?: BetStrategy, betType: BetType[], period: Date }) => {
+export const getMostProfitableMonthAction = async ({ strategy, betType, period }: { strategy: BetStrategy, betType?: BetType[], period: Date }) => {
     const betService = new BetService();
     const bets = await betService.findAll({
         where: {

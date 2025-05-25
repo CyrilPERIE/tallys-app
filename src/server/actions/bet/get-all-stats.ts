@@ -12,8 +12,8 @@ export const getAllStatsAction = async ({
   betType,
   period,
 }: {
-  strategy?: BetStrategy;
-  betType: BetType[];
+  strategy: BetStrategy;
+  betType?: BetType[];
   period: Date;
 }) => {
   const profit = await getProfitAction({ strategy, betType, period });

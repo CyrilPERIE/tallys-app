@@ -9,8 +9,8 @@ export const getROIAction = async ({
   betType,
   period,
 }: {
-  strategy?: BetStrategy;
-  betType: BetType[];
+  strategy: BetStrategy;
+  betType?: BetType[];
   period: Date;
 }) => {
   const betService = new BetService();
