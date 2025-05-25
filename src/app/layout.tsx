@@ -24,16 +24,16 @@ export default function RootLayout({
   return (
     <html lang="fr" className="h-screen">
       <body className={cn(inter.className, "flex flex-col bg-[#f8f5f1]")}>
-        <Header className="bg-white">
+        <Header className="bg-white sm:h-20 h-12">
           <LogoName className="absolute left-4" />
-          <Nav />
+          {/* <Nav /> */}
         </Header>
-        <main className="flex-1 min-h-0 px-24 py-4 overflow-auto">
+        <main className="flex-1 min-h-0 sm:px-24 sm:py-4 pb-4 pt-2 overflow-auto">
           <ReactQueryProvider>
             <FiltersStoreProvider>{children}</FiltersStoreProvider>
           </ReactQueryProvider>
         </main>
-        <Footer className="bg-white" />
+        <Footer className="bg-white sm:h-14 h-10" />
       </body>
     </html>
   );

@@ -19,7 +19,7 @@ export const StatsBetTypeFilter = ({ className }: { className?: string }) => {
       onValueChange={onValueChange}
       placeholder={texts.stats.betType.filters.placeholder}
       maxCount={3}
-      defaultValue={betTypeFilter}
+      defaultValue={[BetType.E_SIMPLE_PLACE]}
     />
   );
 };

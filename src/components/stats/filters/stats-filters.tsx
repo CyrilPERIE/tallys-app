@@ -10,7 +10,7 @@ export const StatsFilters = ({ className }: { className?: string }) => {
   return (
     <Row
       className={cn(
-        "justify-start gap-4 bg-white rounded-full py-2 px-4 items-center",
+        "justify-start gap-4 bg-white sm:rounded-full py-2 px-4 sm:items-center flex-col sm:flex-row items-start",
         className
       )}
     >
