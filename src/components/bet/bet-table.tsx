@@ -22,10 +22,11 @@ export const BetTable = ({ className }: { className?: string }) => {
   const { strategyFilter, betTypeFilter, periodFilter } = useFiltersStore(state => state);
   const [bets, setBets] = useState<Bet[]>([]);
 
-  //TODO: add loading state + voir pour ne pas faire de useEffect
+  //TODO: voir pour ne pas faire de useEffect
   useEffect(() => {
     getLatestBetsAction({ strategy: strategyFilter, betType: betTypeFilter, period: getPeriod(periodFilter) }).then(setBets);
   }, [strategyFilter, betTypeFilter, periodFilter]);
+
   return (
     <div className={cn("", className)}>
       <Table>
