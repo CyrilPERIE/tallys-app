@@ -1,15 +1,23 @@
-"use server";
-//TODO: DELETE OR MOVE
-import { BetService } from "@/server/services/internal/bet-service";
-import { courseIdToCourseIdentifiers } from "@/lib/utils/pmu";
-import { placeResultGain } from "@/lib/utils/bet";
 import { BetStatus } from "@prisma/client";
 
-export const setProfit = async () => {
+import { BetService } from "@/server/services/internal/bet-service";
+import {
+  courseIdentifiersToCourseId,
+  courseIdToCourseIdentifiers,
+} from "@/lib/utils/pmu";
+import { placeResultGain } from "@/lib/utils/bet";
+import { CourseIdentifiers } from "@/domain/entities/utils";
+import { PmuAPIService } from "@/server/services/external/pmu-api-service";
+
+export const setProfitAction = async (courseIdentifiers: CourseIdentifiers) => {
+  const pmuService = new PmuAPIService();
+  const isRaceOver = await pmuService.isRaceOver(courseIdentifiers);
+  if (!isRaceOver) return;
   const betService = new BetService();
   const bets = await betService.findAll({
     where: {
       betStatus: BetStatus.PENDING,
+      courseId: courseIdentifiersToCourseId(courseIdentifiers),
     },
   });
   for (const bet of bets) {

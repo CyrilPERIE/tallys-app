@@ -10,27 +10,31 @@ export const RandomUseCase = async (
   courseIdentifiers: CourseIdentifiers,
   amount: number = 1
 ): Promise<void> => {
-  const pmuService = new PmuAPIService();
-  const betService = new BetService();
-  for (const betType of Object.values(BetType) as BetType[]) {
-    const betSpecification = getBetSpecification(betType);
-    const isBetAvailable = await pmuService.isBetAvailable(
-      courseIdentifiers,
-      betType
-    );
-    if (!isBetAvailable) continue;
-    const horse = await pmuService.getRandomParticipantFromCourse(
-      courseIdentifiers,
-      betSpecification.countHorseNumber
-    );
+  try {
+    const pmuService = new PmuAPIService();
+    const betService = new BetService();
+    for (const betType of Object.values(BetType) as BetType[]) {
+      const betSpecification = getBetSpecification(betType);
+      const isBetAvailable = await pmuService.isBetAvailable(
+        courseIdentifiers,
+        betType
+      );
+      if (!isBetAvailable) continue;
+      const horse = await pmuService.getRandomParticipantFromCourse(
+        courseIdentifiers,
+        betSpecification.countHorseNumber
+      );
 
-    if (horse.length === 0) continue;
-    const betCreated = await betService.create({
-      courseId: courseIdentifiersToCourseId(courseIdentifiers),
-      horseNums: horse,
-      amount,
-      strategy: BetStrategy.Random,
-      betType,
-    });
+      if (horse.length === 0) continue;
+      const betCreated = await betService.create({
+        courseId: courseIdentifiersToCourseId(courseIdentifiers),
+        horseNums: horse,
+        amount,
+        strategy: BetStrategy.Random,
+        betType,
+      });
+    }
+  } catch (error) {
+    console.error(error);
   }
 };

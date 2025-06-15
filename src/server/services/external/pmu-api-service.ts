@@ -2,6 +2,7 @@ import { URLS } from "@/lib/constants/urls";
 import { PronosticsDetaillesResponse } from "@/domain/entities/pmu/details-pronostic";
 import { PronosticsResponse } from "@/domain/entities/pmu/pronostic";
 import {
+  Rapport,
   RapportsDefinitifsResponse,
   RapportsReponse,
 } from "@/domain/entities/pmu/rapport";
@@ -23,6 +24,11 @@ export class PmuAPIService {
     return toJson
       ? pronosticJson
       : JSON.stringify(pronosticJson.pronostics, null, 2);
+  }
+
+  async isRaceOver(courseIdentifiers: CourseIdentifiers) {
+    const results = await fetch(URLS.PMU.RAPPORTS_DEFINITIFS(courseIdentifiers));
+    return results.status === 200;
   }
 
   async getPronosticsDetaille(
@@ -65,6 +71,16 @@ export class PmuAPIService {
     );
     if (rapportsResponse.status !== 200) return;
     const rapportsJson = (await rapportsResponse.json()) as RapportsReponse;
+    return rapportsJson;
+  }
+
+  async getRapportsDefinitifsByBetType(courseIdentifiers: CourseIdentifiers, betType: BetType) {
+    const rapportsResponse = await fetch(
+      URLS.PMU.RAPPORTS_DEFINITIFS_BY_BET_TYPE(courseIdentifiers, betType)
+    );
+    if (rapportsResponse.status !== 200) return;
+    const rapportsJson = (await rapportsResponse.json()) as RapportsDefinitifsResponse[];
+    if (rapportsJson.length === 0) return;
     return rapportsJson;
   }
 
@@ -145,6 +161,18 @@ export class PmuAPIService {
     const betTypes = course.paris.map((pari) => pari.typePari);
     return betTypes.includes(betType);
   }
+
+  async isCombinaisonWon(courseIdentifiers: CourseIdentifiers, betType: BetType, horseNums: number[]) {
+    const rapports = await this.getRapportsDefinitifsByBetType(courseIdentifiers, betType);
+    if (!rapports) return false;
+    const winningCombinaison = rapports.find(
+      (r) => r.rapports.find(
+        (r) => r.combinaison.every((h) => horseNums.includes(h))
+      )
+    );
+    return winningCombinaison !== undefined;
+  }
+
 
   async getCoursesByPmuDates(pmuDates: string[]) {
     const programmes: Record<string, Record<string, string[]>> = {};

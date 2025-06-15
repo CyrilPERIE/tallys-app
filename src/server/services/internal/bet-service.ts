@@ -9,8 +9,6 @@ type findAllOrderByProps = {orderBy?: Prisma.BetOrderByWithRelationInput};
 type findAllTakeProps = {take?: number};
 type findAllProps = findAllWhereProps & findAllOrderByProps & findAllTakeProps;
 
-type aggregateProps = {where?: Prisma.BetWhereInput, _sum?: Prisma.BetSumAggregateInputType};
-
 export class BetService {
     async create(data: createProps) {
         return await prisma.bet.create({ data });
