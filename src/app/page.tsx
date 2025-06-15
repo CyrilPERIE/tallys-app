@@ -1,10 +1,10 @@
 "use client";
 
-import { useGetAllStatsQuery } from "@/components/stats/hooks/use-get-all-stats-query";
 import Stats from "@/components/stats/stats";
 import { useFiltersStore } from "@/stores/filters/provider";
 import { getPeriod } from "@/components/stats/filters/stats-periods-filter";
 import { useEffect } from "react";
+import { usePostAllStatsQuery } from "@/components/stats/hooks/use-get-all-stats-query";
 export default function StatsPage() {
   const {
     periodFilter,
@@ -14,7 +14,7 @@ export default function StatsPage() {
     updateIsLoading,
     updateError,
   } = useFiltersStore((state) => state);
-  const { data, isLoading, error } = useGetAllStatsQuery({
+  const { data, isLoading, error } = usePostAllStatsQuery({
     strategy: strategyFilter,
     betType: betTypeFilter,
     period: getPeriod(periodFilter),
@@ -28,5 +28,5 @@ export default function StatsPage() {
     updateError(error);
   }, [data, isLoading, error]);
 
-  return <Stats className="" />;
+  return <Stats className="max-w-[1808px]" />;
 }
