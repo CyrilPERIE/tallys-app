@@ -2,10 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { amountToDisplay } from "@/lib/utils/label";
-import { getProfitAction } from "@/server/actions/bet/get-profit-action";
-import { useEffect, useState } from "react";
 import { useFiltersStore } from "@/stores/filters/provider";
-import { getPeriod } from "@/components/stats/filters/stats-periods-filter";
 
 export const StatsTotalProfit = ({ className }: { className?: string }) => {
 

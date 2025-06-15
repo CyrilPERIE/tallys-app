@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { getHitRateAction } from "@/server/actions/bet/get-hit-rate-action";
 import { useFiltersStore } from "@/stores/filters/provider";
-import { getPeriod } from "@/components/stats/filters/stats-periods-filter";
+
 export const StatsHitRate = ({ className }: { className?: string }) => {
 
   const { data, isLoading, error } = useFiltersStore((state) => state);

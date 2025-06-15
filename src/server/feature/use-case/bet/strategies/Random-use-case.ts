@@ -26,7 +26,7 @@ export const RandomUseCase = async (
       );
 
       if (horse.length === 0) continue;
-      const betCreated = await betService.create({
+      await betService.create({
         courseId: courseIdentifiersToCourseId(courseIdentifiers),
         horseNums: horse,
         amount,

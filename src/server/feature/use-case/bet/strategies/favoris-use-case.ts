@@ -25,7 +25,7 @@ export const FavorisUseCase = async (
         betType
       );
       if (!favoriteCombination) continue;
-      const betCreated = await betService.create({
+      await betService.create({
         courseId: courseIdentifiersToCourseId(courseIdentifiers),
         horseNums: favoriteCombination,
         amount,

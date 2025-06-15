@@ -1,12 +1,8 @@
 "use client";
 
 import { Column } from "@/components/ui/layout";
-import { courseIdToDisplay, datePmuToDisplay } from "@/lib/utils/label";
-import { getHiggestOddsWinAction } from "@/server/actions/bet/get-higgest-odds-win-action";
-import { useState, useEffect } from "react";
+import { courseIdToDisplay } from "@/lib/utils/label";
 import { useFiltersStore } from "@/stores/filters/provider";
-import { CourseIdentifiers } from "@/domain/entities/utils";
-import { getPeriod } from "@/components/stats/filters/stats-periods-filter";
 
 export const StatsHiggestOddsWin = () => {
 

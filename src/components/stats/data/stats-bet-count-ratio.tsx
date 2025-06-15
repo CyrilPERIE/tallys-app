@@ -1,10 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { getCountRatioAction } from "@/server/actions/bet/count-ratio-action";
-import { useEffect, useState } from "react";
 import { useFiltersStore } from "@/stores/filters/provider";
-import { getPeriod } from "@/components/stats/filters/stats-periods-filter";
+
 export const StatsBetCountRatio = ({ className }: { className?: string }) => {
 
   const { data, isLoading, error } = useFiltersStore((state) => state);

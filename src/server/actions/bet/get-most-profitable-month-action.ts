@@ -22,7 +22,7 @@ export const getMostProfitableMonthAction = async ({ strategy, betType, period }
     const goupBy: Record<string, number> = {}
     for (const bet of bets) {
         const profit = bet.profit ?? 0
-        const { pmuDate, reunionNum, courseNum } = courseIdToCourseIdentifiers(bet.courseId)!
+        const { pmuDate } = courseIdToCourseIdentifiers(bet.courseId)!
         const { year, month } = extractItemsFromPmuDate(pmuDate)
         const key = `${year}-${getMonthLabel(month)}`
         if (!goupBy[key]) {

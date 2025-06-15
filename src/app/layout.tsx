@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import { Header } from "@/components/header/header";
 import { Footer } from "@/components/footer";
 import { cn } from "@/lib/utils";
-import { Nav } from "@/components/header/nav";
+// import { Nav } from "@/components/header/nav";
 import { LogoName } from "@/components/identity/logo-name";
 import { texts } from "@/lib/constants/texts";
 import { FiltersStoreProvider } from "@/stores/filters/provider";

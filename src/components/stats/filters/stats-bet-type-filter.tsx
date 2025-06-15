@@ -5,7 +5,7 @@ import { useFiltersStore } from "@/stores/filters/provider";
 import { BetType } from "@prisma/client";
 
 export const StatsBetTypeFilter = ({ className }: { className?: string }) => {
-  const { betTypeFilter, updateBetTypeFilter } = useFiltersStore((state) => state);
+  const { updateBetTypeFilter } = useFiltersStore((state) => state);
   const onValueChange = (values: string[]) => {
     updateBetTypeFilter(values as BetType[]);
   }

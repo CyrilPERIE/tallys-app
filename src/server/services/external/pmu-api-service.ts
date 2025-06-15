@@ -2,7 +2,6 @@ import { URLS } from "@/lib/constants/urls";
 import { PronosticsDetaillesResponse } from "@/domain/entities/pmu/details-pronostic";
 import { PronosticsResponse } from "@/domain/entities/pmu/pronostic";
 import {
-  Rapport,
   RapportsDefinitifsResponse,
   RapportsReponse,
 } from "@/domain/entities/pmu/rapport";
@@ -110,13 +109,13 @@ export class PmuAPIService {
     count: number = 1
   ): Promise<number[]> {
     const participants = await this.getParticipants(courseIdentifiers);
-    if (!participants) [];
+    if (!participants) return [];
     const horseNums = participants.map((participant: any) => {
       return participant.numPmu;
     });
     if (count > horseNums.length) return horseNums;
-    let choices = [];
-    for (let i = 0; i < count; i++) {
+    const choices = [];
+    for (let _ = 0; _ < count; _++) {
       const lenght = horseNums.length;
       const random = Math.floor(Math.random() * lenght);
       const choice = horseNums[random];

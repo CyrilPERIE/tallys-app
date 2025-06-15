@@ -1,6 +1,5 @@
-import { Bet, BetType } from "@prisma/client";
+import { Bet } from "@prisma/client";
 import { CourseIdentifiers } from "@/domain/entities/utils";
-import { RapportsReponse } from "@/domain/entities/pmu/rapport";
 
 export const courseIdentifiersToCourseId = (
   courseIdentifiers: CourseIdentifiers

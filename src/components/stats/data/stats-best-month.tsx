@@ -3,10 +3,8 @@
 import { cn } from "@/lib/utils";
 import { Row } from "@/components/ui/layout";
 import { Column } from "@/components/ui/layout";
-import { amountToDisplay, getMonthLabel } from "@/lib/utils/label";
-import { useState } from "react";
+import { amountToDisplay } from "@/lib/utils/label";
 import { useFiltersStore } from "@/stores/filters/provider";
-import { useEffect } from "react";
 
 export const StatsBestMonth = ({ className }: { className?: string }) => {
   const { data, isLoading, error } = useFiltersStore((state) => state);
