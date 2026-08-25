@@ -25,6 +25,9 @@ export const MetricNames = [
   "Nombre moyen de courses par programme",
   "Nombre moyen de réunions par programme",
   "Année la plus ancienne des programmes",
+  "Nombre de participants récupérés",
+  "Nombre moyen de participants par course",
+  "Nombre de combinaisons récupérées",
   "Nombre moyen de courses par jour",
 ] as const;
 

@@ -15,7 +15,7 @@ export const Header = ({ className }: { className?: string }) => {
   return (
     <div
       className={cn(
-        "bg-muted/25 text-foreground flex items-center py-4 gap-4 rounded-3xl sticky top-0 z-50 px-6 border border-muted-foreground/25",
+        "bg-muted/25 text-foreground flex items-center py-4 gap-4 rounded-none sm:rounded-3xl sticky top-0 z-50 px-4 sm:px-2 lg:px-6 border border-muted-foreground/25",
         className,
       )}
     >

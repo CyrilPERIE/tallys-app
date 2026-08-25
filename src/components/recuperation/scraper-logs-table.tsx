@@ -8,6 +8,8 @@ import {
 } from "@/src/ui/table";
 import { ScraperLog, ScraperLogStatus } from "@/src/domain/entities/scraperLog";
 import { Badge } from "@/src/ui/badge";
+import { Card, CardContent } from "@/src/ui/card";
+import { cn } from "@/src/lib/utils";
 
 export const ScraperLogsTable = ({
   scraperLogs,
@@ -17,7 +19,8 @@ export const ScraperLogsTable = ({
   className?: string;
 }) => {
   return (
-    <div className={className}>
+    <Card className={cn("h-156", className)}>
+      <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
@@ -29,31 +32,32 @@ export const ScraperLogsTable = ({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {scraperLogs.length > 0 && scraperLogs.map((log) => (
-              <TableRow key={log.id}>
-                <TableCell>{`run_${log.id}`}</TableCell>
-                <TableCell>{log.scraper}</TableCell>
-                <TableCell>
-                  {new Date(log.start_time).toLocaleTimeString()}
-                </TableCell>
-                <TableCell>
-                  {log.duration ? `${log.duration.toFixed(2)}s` : `—`}
-                </TableCell>
-                <TableCell>
-                  <Badge
-                    variant={
-                      log.status === ScraperLogStatus.COMPLETED
-                        ? "success"
-                        : log.status === ScraperLogStatus.FAILED
-                          ? "danger"
-                          : "warning"
-                    }
-                  >
-                    {log.status}
-                  </Badge>
-                </TableCell>
-              </TableRow>
-            ))}
+            {scraperLogs.length > 0 &&
+              scraperLogs.map((log) => (
+                <TableRow key={log.id}>
+                  <TableCell>{`run_${log.id}`}</TableCell>
+                  <TableCell>{log.scraper}</TableCell>
+                  <TableCell>
+                    {new Date(log.start_time).toLocaleTimeString()}
+                  </TableCell>
+                  <TableCell>
+                    {log.duration ? `${log.duration.toFixed(2)}s` : `—`}
+                  </TableCell>
+                  <TableCell>
+                    <Badge
+                      variant={
+                        log.status === ScraperLogStatus.COMPLETED
+                          ? "success"
+                          : log.status === ScraperLogStatus.FAILED
+                            ? "danger"
+                            : "warning"
+                      }
+                    >
+                      {log.status}
+                    </Badge>
+                  </TableCell>
+                </TableRow>
+              ))}
             {scraperLogs.length === 0 && (
               <TableRow>
                 <TableCell colSpan={5} className="text-center">
@@ -63,6 +67,7 @@ export const ScraperLogsTable = ({
             )}
           </TableBody>
         </Table>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
