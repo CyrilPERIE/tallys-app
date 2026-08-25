@@ -1,0 +1,68 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/src/ui/table";
+import { ScraperLog, ScraperLogStatus } from "@/src/domain/entities/scraperLog";
+import { Badge } from "@/src/ui/badge";
+
+export const ScraperLogsTable = ({
+  scraperLogs,
+  className,
+}: {
+  scraperLogs: ScraperLog[];
+  className?: string;
+}) => {
+  return (
+    <div className={className}>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>RUN</TableHead>
+              <TableHead>PIPELINE</TableHead>
+              <TableHead>DÉBUT</TableHead>
+              <TableHead>DURÉE</TableHead>
+              <TableHead>STATUT</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {scraperLogs.length > 0 && scraperLogs.map((log) => (
+              <TableRow key={log.id}>
+                <TableCell>{`run_${log.id}`}</TableCell>
+                <TableCell>{log.scraper}</TableCell>
+                <TableCell>
+                  {new Date(log.start_time).toLocaleTimeString()}
+                </TableCell>
+                <TableCell>
+                  {log.duration ? `${log.duration.toFixed(2)}s` : `—`}
+                </TableCell>
+                <TableCell>
+                  <Badge
+                    variant={
+                      log.status === ScraperLogStatus.COMPLETED
+                        ? "success"
+                        : log.status === ScraperLogStatus.FAILED
+                          ? "danger"
+                          : "warning"
+                    }
+                  >
+                    {log.status}
+                  </Badge>
+                </TableCell>
+              </TableRow>
+            ))}
+            {scraperLogs.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center">
+                  Pas de données disponibles
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+    </div>
+  );
+};

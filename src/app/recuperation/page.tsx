@@ -1,11 +1,11 @@
 "use client";
 
-import { Metrics } from "@/src/components/metrics";
+import { Recuperation } from "@/src/components/recuperation";
 
 export default function RecuperationPage() {
   return (
     <div>
-      <Metrics />
+      <Recuperation />
     </div>
   );
 }

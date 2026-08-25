@@ -6,6 +6,7 @@ export default function Home() {
       <p className="text-2xl font-bold mb-2">Tallys</p>
       <p className="text-sm text-muted-foreground mb-2">Outils de suivi des courses de chevaux.</p>      
       <Changelog />
+      { /* TODO: Ajouter une section de publications */ }
     </div>
   );
 }

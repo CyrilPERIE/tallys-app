@@ -32,7 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         )}
       >
         <LayoutClient>
-          <div className="px-12 pt-6 mb-4">
+          <div className="px-82 pt-6 mb-4">
             <Header className="mb-4" />
             <div className="min-h-full flex flex-col">{children}</div>
           </div>
