@@ -1,17 +1,21 @@
+import { cn } from "@/src/lib/utils";
 import { Card } from "@/src/ui/card";
 
 import { CardHeader, CardContent, CardFooter } from "@/src/ui/card";
+import { ArticleIcon, Code, Fire, RobotIcon } from "@phosphor-icons/react";
 
 type ChangelogItem = {
   title: string;
   date: Date;
   content: React.ReactNode;
+  icon: React.ReactNode;
   footer?: React.ReactNode;
 };
 
 const changelogItems = [
   {
-    title: "🔥 Lancement du projet",
+    icon: <Fire size={22} className="text-primary" />,
+    title: "Lancement du projet",
     date: new Date("2026-07-31"),
     content: (
       <div>
@@ -28,7 +32,8 @@ const changelogItems = [
     ),
   },
   {
-    title: "🤖 Première version du scraper",
+    icon: <RobotIcon size={22} className="text-primary" />,
+    title: "Première version du scraper",
     date: new Date("2026-08-17"),
     content: (
       <div>
@@ -64,14 +69,15 @@ const changelogItems = [
       <div>
         <p>
           Un autre besoin a été identifié entre temps (que j{`'`}expliquerai
-          peut-être plus tard si il aboutit) nécessitant la mise en
-          place de scheduler pour une récupération régulière des données.
+          peut-être plus tard si il aboutit) nécessitant la mise en place de
+          scheduler pour une récupération régulière des données.
         </p>
       </div>
     ),
   },
   {
-    title: "🎨 Première version de l'interface",
+    icon: <ArticleIcon size={22} className="text-primary" />,
+    title: "Première version de l'interface",
     date: new Date("2026-08-23"),
     content: (
       <div>
@@ -101,29 +107,39 @@ const changelogItems = [
 ];
 
 export const Changelog = () => {
-  {/* TODO: Revoir le style */}
   return (
     <div>
-      <p className="text-2xl font-bold mb-2">Statut du projet</p>
-      <div className="flex gap-4">
+      <div className="flex items-center gap-2">
+        <Code size={24} className="text-primary" weight="bold"/>
+        <p className="text-2xl font-bold mb-2">Statut du projet</p>
+      </div>
+      <div className="sm:flex sm:gap-4">
         {changelogItems
           .sort((a, b) => b.date.getTime() - a.date.getTime())
           .map((item) => (
-            <ChangelogItem key={item.title} {...item} />
+            <ChangelogItem key={item.title} {...item} className="mb-4 sm:mb-0 sm:w-96 sm:h-64 sm:overflow-y-auto"/>
           ))}
       </div>
     </div>
   );
 };
 
-const ChangelogItem = ({ title, date, content, footer }: ChangelogItem) => {
+const ChangelogItem = ({
+  title,
+  date,
+  content,
+  footer,
+  icon,
+  className
+}: ChangelogItem & {className: string}) => {
   return (
-    <Card className="w-96 h-64 overflow-y-auto">
-      <CardHeader className="flex items-center justify-between">
-        <p className="text-lg font-bold">{title}</p>
-        <p className="text-sm text-muted-foreground">
-          {date.toLocaleDateString()}
-        </p>
+    <Card className={cn(className, "")}>
+      <CardHeader>
+        <div className="flex gap-2">
+          {icon}
+          <p className="text-lg font-bold">{title}</p>
+        </div>
+        <p className="text-muted-foreground">{date.toLocaleDateString()}</p>
       </CardHeader>
       <CardContent className="text-sm">{content}</CardContent>
       {footer && (

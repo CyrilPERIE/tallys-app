@@ -37,7 +37,7 @@ const RecuperationPageIntroductionChildren = () => {
         <span>Chargement des pipelines...</span>
       </Badge>
     );
-  if (arePipelinesRunning && !arePipelinesActive)
+  if (arePipelinesRunning)
     return (
       <Badge variant="warning">
         <DownloadSimpleIcon size={16} weight="bold" className="mr-1.5" />

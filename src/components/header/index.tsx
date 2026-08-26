@@ -4,12 +4,12 @@ import { cn, isLastItem } from "@/src/lib/utils";
 import { buttonVariants } from "@/src/ui/button";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { CaretRightIcon } from "@phosphor-icons/react";
+import { CaretRightIcon, TrophyIcon } from "@phosphor-icons/react";
 
 export const Header = ({ className }: { className?: string }) => {
   const menuItems = [
     {
-      label: "Constat",
+      label: "Nature",
       href: "/",
     },
     {
@@ -17,7 +17,7 @@ export const Header = ({ className }: { className?: string }) => {
       href: "/recuperation",
     },
     {
-      label: "Exploration des données",
+      label: "Exploration",
       href: "/exploration",
     },
     {
@@ -38,9 +38,10 @@ export const Header = ({ className }: { className?: string }) => {
     >
       <Link
         href="/"
-        className="text-2xl font-bold border-r-2 border-primary pr-4 mr-4"
+        className="border-r-2 border-primary pr-4 mr-4"
       >
-        <h1>Tallys</h1>
+        <h1 className="text-2xl font-bold">Tallys</h1>
+        <p className="sm:hidden text-sm text-muted-foreground">Code 100% humain</p>
       </Link>
       <div className="flex items-center gap-1 overflow-x-auto overflow-y-hidden"> 
         {menuItems.map((item, index) => (
@@ -52,6 +53,7 @@ export const Header = ({ className }: { className?: string }) => {
           </div>
         ))}
       </div>
+      <p className="hidden sm:flex items-center gap-1 ml-auto text-sm"><TrophyIcon size={14} weight="thin" /> Code 100% Humain</p>
     </div>
   );
 };

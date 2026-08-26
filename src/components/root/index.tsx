@@ -3,6 +3,7 @@ import { BadgeIcon } from "@/src/components/_common/badge-icon";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/ui/card";
 import { ArrowRightIcon, BinocularsIcon, ChartLineIcon, GhostIcon, HorseIcon, ShapesIcon } from "@phosphor-icons/react";
 import Link from "next/link";
+import { Separator } from "@base-ui/react";
 
 export const Root = () => {
     const itemCardSteps: Omit<ItemCardStepProps, 'index'>[] = [
@@ -52,7 +53,7 @@ export const Root = () => {
           </p>
         </CardContent>
       </Card>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         {itemCardSteps.map((item, index) => (
           <ItemCardStep key={index} {...item} index={index} />
         ))}
