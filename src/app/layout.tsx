@@ -32,9 +32,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         )}
       >
         <LayoutClient>
+          <Header className="mb-4" />
           <div className="lg:px-82 sm:px-4 lg:pt-6 sm:pt-4 mb-4">
-            <Header className="mb-4" />
-            <div className="min-h-full flex flex-col px-4 sm:px-2 lg:px-0">{children}</div>
+            <div className="min-h-full flex flex-col px-4 sm:px-2 lg:px-0">
+              {children}
+            </div>
           </div>
           <Footer className="mt-auto" />
         </LayoutClient>

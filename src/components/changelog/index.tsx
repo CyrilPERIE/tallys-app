@@ -101,6 +101,7 @@ const changelogItems = [
 ];
 
 export const Changelog = () => {
+  {/* TODO: Revoir le style */}
   return (
     <div>
       <p className="text-2xl font-bold mb-2">Statut du projet</p>

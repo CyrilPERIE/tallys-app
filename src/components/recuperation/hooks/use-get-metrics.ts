@@ -1,5 +1,7 @@
+import { ScraperLogStatus } from "@/src/domain/entities/scraperLog";
 import { getMetrics, GetMetricsResponseMapped } from "@/src/domain/service/metrics";
 import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 
 export const useGetMetrics = () => {
   const { data, isLoading, error } = useQuery<GetMetricsResponseMapped | undefined>({
@@ -22,5 +24,15 @@ export const useGetMetrics = () => {
     staleTime: 1000 * 60 * 5,
   });
 
-  return { data, isLoading, error };
+  const arePipelinesActive: boolean | undefined = useMemo(() => {
+    if (!data || data.scraperLogs.length === 0) return undefined;
+    return data.scraperLogs[0].status !== ScraperLogStatus.FAILED;
+  }, [data]);
+
+  const arePipelinesRunning: boolean | undefined = useMemo(() => {
+    if (!data || data.scraperLogs.length === 0) return undefined;
+    return data.scraperLogs[0].status === ScraperLogStatus.RUNNING;
+  }, [data]);
+
+  return { data, isLoading, error, arePipelinesActive, arePipelinesRunning };
 };
