@@ -4,6 +4,7 @@ import {
 import { CardMetric } from "@/src/components/recuperation/card-metric";
 import { cn } from "@/src/lib/utils";
 import { CalendarIcon, DatabaseIcon, FlagIcon, GitCommitIcon, StackIcon, UsersIcon } from "@phosphor-icons/react";
+import { format_quantity } from "@/src/lib/format";
 
 export const Metrics = ({
   metrics,
@@ -23,31 +24,31 @@ export const Metrics = ({
     >
       <CardMetric
         title="PROGRAMMES"
-        value={metrics["Nombre de programmes récupérés"].value.toString()}
+        value={format_quantity(metrics["Nombre de programmes récupérés"].value)}
         icon={<CalendarIcon size={18} />}
         caption={`depuis ${metrics["Année la plus ancienne des programmes"].value}`}
       />
       <CardMetric 
         title="RÉUNIONS"
-        value={metrics["Nombre de réunions récupérées"].value.toString()}
+        value={format_quantity(metrics["Nombre de réunions récupérées"].value)}
         icon={<StackIcon size={18} />}
-        caption={`${metrics["Nombre moyen de réunions par programme"].value.toFixed(1)} par programme`}
+        caption={`${format_quantity(metrics["Nombre moyen de réunions par programme"].value)} par programme`}
       />
       <CardMetric 
         title="COURSES"
-        value={metrics["Nombre de courses récupérées"].value.toString()}
+        value={format_quantity(metrics["Nombre de courses récupérées"].value)}
         icon={<FlagIcon size={18} />}
-        caption={`${metrics["Nombre moyen de courses par programme"].value.toFixed(1)} par programme`}
+        caption={`${format_quantity(metrics["Nombre moyen de courses par programme"].value)} par programme`}
       />
       <CardMetric 
         title="PARTICIPANTS"
-        value={metrics["Nombre de participants récupérés"].value.toString()}
+        value={format_quantity(metrics["Nombre de participants récupérés"].value)}
         icon={<UsersIcon size={18} />}
-        caption={`${metrics["Nombre moyen de participants par course"].value.toFixed(1)} partants / course`}
+        caption={`${format_quantity(metrics["Nombre moyen de participants par course"].value)} partants / course`}
       />
       <CardMetric 
         title="COMBINAISONS"
-        value={metrics["Nombre de combinaisons récupérées"].value.toString()}
+        value={format_quantity(metrics["Nombre de combinaisons récupérées"].value)}
         icon={<GitCommitIcon size={18} />}
         caption={`tous types de paris`}
       />
