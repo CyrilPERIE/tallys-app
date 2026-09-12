@@ -2,7 +2,13 @@ import { cn } from "@/src/lib/utils";
 import { Card } from "@/src/ui/card";
 
 import { CardHeader, CardContent, CardFooter } from "@/src/ui/card";
-import { ArticleIcon, Code, Fire, RobotIcon } from "@phosphor-icons/react";
+import {
+  ArticleIcon,
+  Code,
+  FileIcon,
+  Fire,
+  RobotIcon,
+} from "@phosphor-icons/react";
 
 type ChangelogItem = {
   title: string;
@@ -104,20 +110,42 @@ const changelogItems = [
       </div>
     ),
   },
+  {
+    icon: <FileIcon size={22} className="text-primary" />,
+    title: "Ajout de notebooks",
+    date: new Date("2026-09-12"),
+    content: (
+      <div>
+        <p>
+          J{`'`}ai ajouté des notebooks permettant de visualiser les données
+          récupérées.
+        </p>
+        <p>
+          Ces notebooks sont utilisés pour explorer les données et pour faire
+          des premiers tests naïfs et voir si les données sont exploitables et
+          peuvent mener quelque part.
+        </p>
+      </div>
+    ),
+  },
 ];
 
 export const Changelog = () => {
   return (
     <div>
       <div className="flex items-center gap-2">
-        <Code size={24} className="text-primary" weight="bold"/>
+        <Code size={24} className="text-primary" weight="bold" />
         <p className="text-2xl font-bold mb-2">Statut du projet</p>
       </div>
       <div className="sm:flex sm:gap-4">
         {changelogItems
           .sort((a, b) => b.date.getTime() - a.date.getTime())
           .map((item) => (
-            <ChangelogItem key={item.title} {...item} className="mb-4 sm:mb-0 sm:w-96 sm:h-64 sm:overflow-y-auto"/>
+            <ChangelogItem
+              key={item.title}
+              {...item}
+              className="mb-4 sm:mb-0 sm:w-96 sm:h-64 sm:overflow-y-auto"
+            />
           ))}
       </div>
     </div>
@@ -130,8 +158,8 @@ const ChangelogItem = ({
   content,
   footer,
   icon,
-  className
-}: ChangelogItem & {className: string}) => {
+  className,
+}: ChangelogItem & { className: string }) => {
   return (
     <Card className={cn(className, "")}>
       <CardHeader>

@@ -3,7 +3,6 @@ import { BadgeIcon } from "@/src/components/_common/badge-icon";
 import { Card, CardContent, CardHeader, CardTitle } from "@/src/ui/card";
 import { ArrowRightIcon, BinocularsIcon, ChartLineIcon, GhostIcon, HorseIcon, ShapesIcon } from "@phosphor-icons/react";
 import Link from "next/link";
-import { Separator } from "@base-ui/react";
 
 export const Root = () => {
     const itemCardSteps: Omit<ItemCardStepProps, 'index'>[] = [
