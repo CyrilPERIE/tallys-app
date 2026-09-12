@@ -10,41 +10,41 @@ export const Root = () => {
             title: "Récupération",
             description: "Collecte automatique des programmes, réunions, courses, partants et rapports depuis l’API PMU.",
             href: "/recuperation",
-            icon: <GhostIcon weight="bold" className="text-primary size-10" />,
+            icon: <GhostIcon weight="bold" className="text-primary size-8 sm:size-10" />,
         },
         {
             title: "Exploration des données",
             description: "Etude de la structure, des biais et du pouvoir prédictif des variables disponibles",
             href: "/exploration",
-            icon: <BinocularsIcon weight="bold" className="text-primary size-10" />,
+            icon: <BinocularsIcon weight="bold" className="text-primary size-8 sm:size-10" />,
         },
         {
             title: "Modélisation des données",
             description: "Création de modèles statistiques ou entraînement de modèles de machine learning pour prédire les résultats des courses",
             href: "/modelisation",
-            icon: <ShapesIcon weight="bold" className="text-primary size-10" />,
+            icon: <ShapesIcon weight="bold" className="text-primary size-8 sm:size-10" />,
         },
         {
             title: "Résultats",
             description: "Observation des résultats des paris effectués à l'aide des modèles",
             href: "/resultats",
-            icon: <ChartLineIcon weight="bold" className="text-primary size-10" />,
+            icon: <ChartLineIcon weight="bold" className="text-primary size-8 sm:size-10" />,
         },
 
     ]
   return (
-    <div>
+    <div className="min-w-0">
       <Card className="mb-8">
         <CardHeader className="justify-center">
           <BadgeIcon>
-            <HorseIcon weight="bold" className="text-primary size-16" />
+            <HorseIcon weight="bold" className="text-primary size-12 sm:size-16" />
           </BadgeIcon>
           <CardTitle>
-            <p className="text-2xl font-bold text-center">Tallys</p>
+            <p className="text-center text-xl font-bold sm:text-2xl">Tallys</p>
           </CardTitle>
         </CardHeader>
-        <CardContent className= "md:w-1/2 mx-auto">
-          <p className="text-sm text-muted-foreground text-center">
+        <CardContent className="mx-auto max-w-2xl">
+          <p className="text-center text-sm text-muted-foreground text-pretty">
             Projet de collecte, d’analyse et de prédiction sur les courses
             hippiques PMU. L’application récupère les données brutes, les
             explore, entraîne des modèles et expose leurs résultats sous forme
@@ -80,14 +80,25 @@ const ItemCardStep = ({
 }: ItemCardStepProps) => {
   return (
     <Card>
-      <CardContent className="flex flex-row gap-4">
-        <div>
+      <CardContent className="flex min-w-0 flex-row gap-3 sm:gap-4">
+        <div className="shrink-0">
           <BadgeIcon>{icon}</BadgeIcon>
         </div>
-        <div>
-            <span className="text-sm font-bold mr-3">{index + 1}.</span><span className="text-sm font-bold">{title}</span>
-            <p className="text-sm text-muted-foreground">{description}</p>
-            <Link href={href} className="flex flex-row gap-2 items-center text-sm text-primary hover:underline"><span>Accéder</span><ArrowRightIcon /></Link>
+        <div className="min-w-0">
+          <p className="text-sm font-bold">
+            <span className="mr-2">{index + 1}.</span>
+            {title}
+          </p>
+          <p className="text-sm text-muted-foreground text-pretty">
+            {description}
+          </p>
+          <Link
+            href={href}
+            className="mt-1 inline-flex items-center gap-2 text-sm text-primary hover:underline"
+          >
+            <span>Accéder</span>
+            <ArrowRightIcon />
+          </Link>
         </div>
       </CardContent>
     </Card>

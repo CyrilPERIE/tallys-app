@@ -16,15 +16,24 @@ export const PageIntroduction = ({
   className?: string;
 }) => {
   return (
-    <Card className={cn("flex flex-row items-center gap-2 p-4", className)}>
-      <BadgeIcon>
-        {icon}
-      </BadgeIcon>
-      <div>
-        <h1 className="text-2xl font-bold">{title}</h1>
-        <p className="text-sm text-muted-foreground">{description}</p>
+    <Card
+      className={cn(
+        "flex flex-col gap-3 p-4 sm:flex-row sm:items-center",
+        className,
+      )}
+    >
+      <div className="flex min-w-0 items-start gap-3">
+        <BadgeIcon className="shrink-0">{icon}</BadgeIcon>
+        <div className="min-w-0">
+          <h1 className="text-xl font-bold text-pretty sm:text-2xl">{title}</h1>
+          <p className="text-sm text-muted-foreground text-pretty">
+            {description}
+          </p>
+        </div>
       </div>
-      <div className="ml-auto">{children}</div>
+      {children ? (
+        <div className="shrink-0 sm:ml-auto">{children}</div>
+      ) : null}
     </Card>
   );
 };

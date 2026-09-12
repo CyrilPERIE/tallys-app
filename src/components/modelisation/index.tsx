@@ -6,7 +6,7 @@ export const Modelisation = () => {
   return (
     <>
       <PageIntroduction
-        icon={<ShapesIcon weight="bold" className="text-primary size-12" />}
+        icon={<ShapesIcon weight="bold" className="size-10 text-primary sm:size-12" />}
         title="Modélisation des données"
         description="Comparaison des performances de différents modèles mis en œuvre pour prédire le résultat d'une course de chevaux"
         className="mb-4 sm:mb-12"

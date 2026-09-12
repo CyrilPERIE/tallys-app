@@ -17,14 +17,22 @@ export const CardMetric = ({
   className,
 }: CardCountMetricProps) => {
   return (
-    <Card className={cn("", className)}>
+    <Card className={cn("min-w-0", className)}>
       <CardContent>
-        <div className="flex items-center justify-between">
-          <p className="text-md">{title.toUpperCase()}</p>
-          <div className="flex items-center justify-center text-primary">{icon}</div>
+        <div className="flex items-start justify-between gap-2">
+          <p className="text-xs font-medium tracking-wide text-pretty">
+            {title.toUpperCase()}
+          </p>
+          <div className="flex shrink-0 items-center justify-center text-primary">
+            {icon}
+          </div>
         </div>
-        <p className="text-2xl font-bold">{value}</p>
-        {caption && <p className="text-sm text-gray-500">{caption}</p>}
+        <p className="text-xl font-bold sm:text-2xl">{value}</p>
+        {caption && (
+          <p className="text-xs text-muted-foreground text-pretty sm:text-sm">
+            {caption}
+          </p>
+        )}
       </CardContent>
     </Card>
   );

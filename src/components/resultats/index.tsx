@@ -6,7 +6,7 @@ export const Resultats = () => {
   return (
     <>
       <PageIntroduction
-        icon={<ChartLineIcon weight="bold" className="text-primary size-12" />}
+        icon={<ChartLineIcon weight="bold" className="size-10 text-primary sm:size-12" />}
         title="Résultats"
         description="Parce que rien ne vaut le réel, voici le résultat de l'application du modèle en direct."
         className="mb-4 sm:mb-12"

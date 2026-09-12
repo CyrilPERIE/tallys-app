@@ -2,11 +2,17 @@ import { ClockIcon } from "@phosphor-icons/react";
 
 export const Wip = () => {
   return (
-    <div className="flex items-center justify-center h-full">
-      <ClockIcon size={24} weight="bold" className="text-primary mr-2" />
-      <p className="text-sm text-muted-foreground">
-        Travail en cours, les efforts sont en cours sur la consolidation de la
-        récupération des données et l&apos;exploration des données.
+    <div className="flex flex-col items-center justify-center gap-2 px-2 text-center sm:flex-row sm:text-left">
+      <ClockIcon
+        size={24}
+        weight="bold"
+        className="shrink-0 text-primary"
+      />
+      <p className="text-sm text-muted-foreground text-pretty">
+        Travail en cours, des modélisations avancées sont en cours sur les données.
+      </p>
+      <p className="text-sm text-muted-foreground text-pretty">
+        Des notebooks sont en cours d'ajout pour continuer d'explorer les données.
       </p>
     </div>
   );

@@ -16,7 +16,7 @@ export const Recuperation = () => {
   return (
     <>
       <PageIntroduction
-        icon={<GhostIcon weight="bold" className="text-primary size-12" />}
+        icon={<GhostIcon weight="bold" className="size-10 text-primary sm:size-12" />}
         title="Récupération"
         description="Métrics sur la récupération de données effectuée sur l'API publique de PMU."
         className="mb-4"
@@ -32,14 +32,14 @@ const RecuperationPageIntroductionChildren = () => {
   const { arePipelinesActive, arePipelinesRunning } = useGetMetrics();
   if (arePipelinesActive === undefined && arePipelinesRunning === undefined)
     return (
-      <Badge variant="secondary">
-        <SpinnerIcon size={16} className="animate-spin mr-1.5" />
+      <Badge variant="secondary" className="h-auto max-w-full whitespace-normal">
+        <SpinnerIcon size={16} className="mr-1.5 animate-spin" />
         <span>Chargement des pipelines...</span>
       </Badge>
     );
   if (arePipelinesRunning)
     return (
-      <Badge variant="warning">
+      <Badge variant="warning" className="h-auto max-w-full whitespace-normal">
         <DownloadSimpleIcon size={16} weight="bold" className="mr-1.5" />
         <span>En cours de récupération</span>
       </Badge>
@@ -69,9 +69,9 @@ const RecuperationContent = () => {
     );
   if (error)
     return (
-      <div className="flex h-full">
-        <ExclamationMarkIcon size={24} className="text-red-500" /> Erreur lors
-        de la récupération des données
+      <div className="flex min-w-0 items-start gap-2 text-sm">
+        <ExclamationMarkIcon size={24} className="shrink-0 text-red-500" />
+        <span>Erreur lors de la récupération des données</span>
       </div>
     );
   if (!data) return <div className="flex h-full">Aucune donnée disponible</div>;

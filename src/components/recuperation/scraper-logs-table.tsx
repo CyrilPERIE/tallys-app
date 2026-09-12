@@ -19,8 +19,8 @@ export const ScraperLogsTable = ({
   className?: string;
 }) => {
   return (
-    <Card className={cn("h-156", className)}>
-      <CardContent>
+    <Card className={cn("max-h-[min(39rem,70dvh)] min-h-64 overflow-hidden", className)}>
+      <CardContent className="h-full overflow-y-auto">
         <Table>
           <TableHeader>
             <TableRow>

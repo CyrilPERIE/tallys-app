@@ -47,7 +47,7 @@ const changelogItems = [
           Un premier gros travail de recherche a été réalisé afin de déterminer
           les données historiques disponibles via l{`'`}API publique PMU.
         </p>
-        <ul className="list-disc list-inside mb-2">
+        <ul className="mb-2 list-disc space-y-1 pl-5">
           <li>
             Découverte de l{`'`}API publique PMU et des endpoints disponibles.
           </li>
@@ -132,20 +132,16 @@ const changelogItems = [
 
 export const Changelog = () => {
   return (
-    <div>
-      <div className="flex items-center gap-2">
-        <Code size={24} className="text-primary" weight="bold" />
-        <p className="text-2xl font-bold mb-2">Statut du projet</p>
+    <div className="min-w-0">
+      <div className="mb-4 flex min-w-0 items-center gap-2">
+        <Code size={24} className="shrink-0 text-primary" weight="bold" />
+        <p className="text-xl font-bold sm:text-2xl">Statut du projet</p>
       </div>
-      <div className="sm:flex sm:gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {changelogItems
           .sort((a, b) => b.date.getTime() - a.date.getTime())
           .map((item) => (
-            <ChangelogItem
-              key={item.title}
-              {...item}
-              className="mb-4 sm:mb-0 sm:w-96 sm:h-64 sm:overflow-y-auto"
-            />
+            <ChangelogItem key={item.title} {...item} className="min-w-0" />
           ))}
       </div>
     </div>
@@ -161,15 +157,17 @@ const ChangelogItem = ({
   className,
 }: ChangelogItem & { className: string }) => {
   return (
-    <Card className={cn(className, "")}>
+    <Card className={cn("h-full", className)}>
       <CardHeader>
-        <div className="flex gap-2">
-          {icon}
-          <p className="text-lg font-bold">{title}</p>
+        <div className="flex items-start gap-2">
+          <span className="shrink-0">{icon}</span>
+          <p className="text-base font-bold text-pretty sm:text-lg">{title}</p>
         </div>
-        <p className="text-muted-foreground">{date.toLocaleDateString()}</p>
+        <p className="text-sm text-muted-foreground">
+          {date.toLocaleDateString("fr-FR")}
+        </p>
       </CardHeader>
-      <CardContent className="text-sm">{content}</CardContent>
+      <CardContent className="min-w-0 text-sm text-pretty">{content}</CardContent>
       {footer && (
         <CardFooter className="text-sm text-muted-foreground">
           {footer}

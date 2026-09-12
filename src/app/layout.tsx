@@ -26,17 +26,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="fr">
       <body
         className={cn(
-          "flex flex-col min-h-screen antialiased",
+          "flex min-h-dvh flex-col overflow-x-clip antialiased",
           fontSans.variable,
           fontMono.variable,
         )}
       >
         <LayoutClient>
           <Header className="mb-4" />
-          <div className="lg:px-82 sm:px-4 lg:pt-6 sm:pt-4 mb-4">
-            <div className="min-h-full flex flex-col px-4 sm:px-2 lg:px-0">
-              {children}
-            </div>
+          <div className="mx-auto mb-4 flex w-full min-w-0 max-w-7xl flex-1 flex-col px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8">
+            {children}
           </div>
           <Footer className="mt-auto" />
         </LayoutClient>
