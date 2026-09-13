@@ -70,29 +70,6 @@ const DrawerNotebook = ({ notebookId }: { notebookId: NotebookId }) => {
             Lire
           </DrawerTrigger>
           <DrawerContent className="data-[swipe-axis=y]:[--drawer-content-max-height:96dvh] data-[swipe-axis=y]:[--drawer-height:96dvh]">
-            <DrawerHeader className="flex-row items-center justify-between gap-3 text-left">
-              <DrawerTitle>{notebook.title}</DrawerTitle>
-              <div className="flex items-center gap-1">
-                <a
-                  href={notebook.pdfHref}
-                  download
-                  className={cn(
-                    buttonVariants({ variant: "ghost", size: "icon-sm" }),
-                  )}
-                  aria-label={`Télécharger ${notebook.title}`}
-                >
-                  <DownloadSimpleIcon />
-                </a>
-                <DrawerClose
-                  className={cn(
-                    buttonVariants({ variant: "ghost", size: "icon-sm" }),
-                  )}
-                  aria-label="Fermer le rapport"
-                >
-                  <XIcon />
-                </DrawerClose>
-              </div>
-            </DrawerHeader>
             <iframe
               src={notebook.htmlHref}
               title={notebook.title}
