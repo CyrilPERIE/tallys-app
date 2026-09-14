@@ -24,31 +24,31 @@ export const Metrics = ({
     >
       <CardMetric
         title="PROGRAMMES"
-        value={format_quantity(metrics["Nombre de programmes récupérés"].value)}
+        value={format_quantity(metrics["Nombre de programmes récupérés"].value.value)}
         icon={<CalendarIcon size={18} />}
-        caption={`depuis ${metrics["Année la plus ancienne des programmes"].value}`}
+        caption={`depuis ${metrics["Année la plus ancienne des programmes"].value.value}`}
       />
       <CardMetric 
         title="RÉUNIONS"
-        value={format_quantity(metrics["Nombre de réunions récupérées"].value)}
+        value={format_quantity(metrics["Nombre de réunions récupérées"].value.value)}
         icon={<StackIcon size={18} />}
-        caption={`${format_quantity(metrics["Nombre moyen de réunions par programme"].value)} par programme`}
+        caption={`${format_quantity(metrics["Nombre moyen de réunions par programme"].value.value)} par programme`}
       />
       <CardMetric 
         title="COURSES"
-        value={format_quantity(metrics["Nombre de courses récupérées"].value)}
+        value={format_quantity(metrics["Nombre de courses récupérées"].value.value)}
         icon={<FlagIcon size={18} />}
-        caption={`${format_quantity(metrics["Nombre moyen de courses par programme"].value)} par programme`}
+        caption={`${format_quantity(metrics["Nombre moyen de courses par programme"].value.value)} par programme`}
       />
       <CardMetric 
         title="PARTICIPANTS"
-        value={format_quantity(metrics["Nombre de participants récupérés"].value)}
+        value={format_quantity(metrics["Nombre de participants récupérés"].value.value)}
         icon={<UsersIcon size={18} />}
-        caption={`${format_quantity(metrics["Nombre moyen de participants par course"].value)} partants / course`}
+        caption={`${format_quantity(metrics["Nombre moyen de participants par course"].value.value)} partants / course`}
       />
       <CardMetric 
         title="COMBINAISONS"
-        value={format_quantity(metrics["Nombre de combinaisons récupérées"].value)}
+        value={format_quantity(metrics["Nombre de combinaisons récupérées"].value.value)}
         icon={<GitCommitIcon size={18} />}
         caption={`tous types de paris`}
       />

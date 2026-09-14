@@ -1,6 +1,12 @@
+//TODO: Review the metrics service to ensure it is correct and up to date.
+
 import { fetchBackend } from "@/src/lib/backend-client";
 import { Metric, Metrics } from "@/src/domain/entities/metrics";
 import { ScraperLog, ScraperLogStatus } from "@/src/domain/entities/scraperLog";
+
+export enum MetricsCategory {
+  RECUPERATION = "recuperation",
+}
 
 export interface GetMetricsResponse {
   metrics: Metric[];
@@ -14,10 +20,10 @@ export interface GetMetricsResponseMapped {
   databaseSize: string;
 }
 
-export const getMetrics = async (): Promise<GetMetricsResponseMapped | undefined> => {
+export const getMetrics = async (metricsCategory: MetricsCategory): Promise<GetMetricsResponseMapped | undefined> => {
   try {
     const data = await fetchBackend<GetMetricsResponse>({
-      endpoint: "/metrics",
+      endpoint: `/metrics/${metricsCategory}`,
     });
     const metrics = mapMetrics(data.metrics);
     const scraperLogs = data.scraper_logs.map((log) => {

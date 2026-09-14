@@ -1,13 +1,14 @@
 import { ScraperLogStatus } from "@/src/domain/entities/scraperLog";
-import { getMetrics, GetMetricsResponseMapped } from "@/src/domain/service/metrics";
+import { getMetrics, GetMetricsResponseMapped, MetricsCategory } from "@/src/domain/service/metrics";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 
 export const useGetMetrics = () => {
+  const metricsCategory = MetricsCategory.RECUPERATION;
   const { data, isLoading, error } = useQuery<GetMetricsResponseMapped | undefined>({
-    queryKey: ["metrics"],
+    queryKey: ["metrics", metricsCategory],
     queryFn: async () => {
-      const data = await getMetrics();
+      const data = await getMetrics(metricsCategory);
       if (data) {
         return {
           metrics: data.metrics,

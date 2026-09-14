@@ -1,5 +1,5 @@
 import { Metrics } from "./metrics";
-import { useGetMetrics } from "@/src/components/recuperation/hooks/use-get-metrics";
+import { useGetMetrics } from "@/src/components/recuperation/hooks/use-get-metrics-recuperation";
 import { ScraperLogsTable } from "@/src/components/recuperation/scraper-logs-table";
 import {
   DownloadSimpleIcon,
@@ -11,12 +11,19 @@ import {
 } from "@phosphor-icons/react";
 import { PageIntroduction } from "@/src/components/_common/page_summary";
 import { Badge } from "@/src/ui/badge";
+import PieChart from "@/src/components/recuperation/pie-chart";
+import { RadialChart } from "@/src/components/recuperation/radial-chart";
 
 export const Recuperation = () => {
   return (
     <>
       <PageIntroduction
-        icon={<GhostIcon weight="bold" className="size-10 text-primary sm:size-12" />}
+        icon={
+          <GhostIcon
+            weight="bold"
+            className="size-10 text-primary sm:size-12"
+          />
+        }
         title="Récupération"
         description="Métrics sur la récupération de données effectuée sur l'API publique de PMU."
         className="mb-4"
@@ -32,7 +39,10 @@ const RecuperationPageIntroductionChildren = () => {
   const { arePipelinesActive, arePipelinesRunning } = useGetMetrics();
   if (arePipelinesActive === undefined && arePipelinesRunning === undefined)
     return (
-      <Badge variant="secondary" className="h-auto max-w-full whitespace-normal">
+      <Badge
+        variant="secondary"
+        className="h-auto max-w-full whitespace-normal"
+      >
         <SpinnerIcon size={16} className="mr-1.5 animate-spin" />
         <span>Chargement des pipelines...</span>
       </Badge>
@@ -67,6 +77,7 @@ const RecuperationContent = () => {
         <SpinnerIcon size={24} className="animate-spin" />
       </div>
     );
+
   if (error)
     return (
       <div className="flex min-w-0 items-start gap-2 text-sm">
@@ -74,7 +85,9 @@ const RecuperationContent = () => {
         <span>Erreur lors de la récupération des données</span>
       </div>
     );
+
   if (!data) return <div className="flex h-full">Aucune donnée disponible</div>;
+  const scraperLogsMetric = data.metrics["Nombre de logs de scraper"].value;
   return (
     <div>
       <Metrics
@@ -82,7 +95,14 @@ const RecuperationContent = () => {
         databaseSize={data.databaseSize}
         className="mb-4"
       />
-      <ScraperLogsTable scraperLogs={data.scraperLogs} />
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 xl:grid-cols-7">
+        <ScraperLogsTable
+          scraperLogs={data.scraperLogs}
+          className="col-span-2 sm:col-span-3 xl:col-span-3"
+        />
+          <PieChart values={scraperLogsMetric} className="col-span-2 sm:col-span-3 xl:col-span-2" />
+          <RadialChart values={scraperLogsMetric} className="col-span-2 sm:col-span-3 xl:col-span-2" />
+      </div>
     </div>
   );
 };
